@@ -1,0 +1,403 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Map</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../static/main.css">
+  </head>
+  <body>
+    <header class="hero">
+      <a class="brand" href="../">
+        <img class="brand-logo" src="../static/gpx-catalog-logo.png" alt="GPX Catalog">
+      </a>
+      <div class="container nav-bar">
+        <nav>
+          <a href="../">Home</a>
+          <a href="./">Explore</a>
+          <a href="../hikes/">Hikes</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container">
+      
+<section class="hero-panel">
+  <h1>Explore hikes on the map</h1>
+  <p>Click a marker to see the hike's photo, stats, and a link to its page.</p>
+</section>
+
+<div class="map-panel map-panel--full">
+  
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_33e89cf4ce9a161318c55d64de99e003 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/leaflet.markercluster.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/MarkerCluster.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/MarkerCluster.Default.css"/>
+  <div class="map-panel-inner">
+    
+    
+            <div class="folium-map" id="map_33e89cf4ce9a161318c55d64de99e003" ></div>
+        
+    <aside id="map-side-panel" class="side-panel">
+      <div class="panel-empty">
+        <h2>Select a hike</h2>
+        <p>Select a hike on the map to start exploring. Click a marker to see its distance, elevation, and photos.</p>
+        <p class="panel-hint">5 hikes plotted</p>
+        <ul class="panel-legend panel-legend--compact">
+          <li><span class="legend-swatch legend-swatch--easy" aria-hidden="true"></span>Easy</li>
+          <li><span class="legend-swatch legend-swatch--moderate" aria-hidden="true"></span>Moderate</li>
+          <li><span class="legend-swatch legend-swatch--hard" aria-hidden="true"></span>Hard</li>
+        </ul>
+      </div>
+    </aside>
+  </div>
+  <script>
+    
+            var map_33e89cf4ce9a161318c55d64de99e003 = L.map(
+                "map_33e89cf4ce9a161318c55d64de99e003",
+                {
+                    center: [0.0, 0.0],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 1,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_d4f2ce00aff50e7607904cf7c7627315 = L.tileLayer(
+                "https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 18,
+  "maxNativeZoom": 18,
+  "noWrap": false,
+  "attribution": "Map data: \u0026copy; OpenStreetMap contributors, Style: \u0026copy; CyclOSM",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_d4f2ce00aff50e7607904cf7c7627315.addTo(map_33e89cf4ce9a161318c55d64de99e003);
+        
+    
+            var tile_layer_219ad5cb3c31259db4ade9bf7a937e9f = L.tileLayer(
+                "https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 18,
+  "maxNativeZoom": 18,
+  "noWrap": false,
+  "attribution": "Map data: \u0026copy; OSM contributors, SRTM | Map style: \u0026copy; OpenTopoMap",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            var layer_control_c572c4ce954687c71456195e03241551_layers = {
+                base_layers : {
+                    "CyclOSM" : tile_layer_d4f2ce00aff50e7607904cf7c7627315,
+                    "OpenTopoMap" : tile_layer_219ad5cb3c31259db4ade9bf7a937e9f,
+                },
+                overlays :  {
+                },
+            };
+            let layer_control_c572c4ce954687c71456195e03241551 = L.control.layers(
+                layer_control_c572c4ce954687c71456195e03241551_layers.base_layers,
+                layer_control_c572c4ce954687c71456195e03241551_layers.overlays,
+                {
+  "position": "topright",
+  "collapsed": true,
+  "autoZIndex": true,
+}
+            ).addTo(map_33e89cf4ce9a161318c55d64de99e003);
+
+        
+    
+            var marker_cluster_d41f7bc1f2ff543e7d4fb2666bcd1f9b = L.markerClusterGroup(
+                {
+}
+            );
+        
+    
+            var marker_5b370641da5762a5d0f736e50996032b = L.marker(
+                [46.44872000263799, 12.117831609375003],
+                {
+}
+            ).addTo(marker_cluster_d41f7bc1f2ff543e7d4fb2666bcd1f9b);
+        
+    
+            var icon_63439da72e2c82f758f66e747259b7d7 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "orange",
+  "iconColor": "white",
+  "icon": "flag",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_5b370641da5762a5d0f736e50996032b.bindTooltip(
+                `<div>
+                     Val di Zoldo - Hike above Città di Fiume
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_5b370641da5762a5d0f736e50996032b.setIcon(icon_63439da72e2c82f758f66e747259b7d7);
+            
+    
+            var marker_e4bc59f354345252c7983c0227d168a4 = L.marker(
+                [46.39411534517045, 12.514578429924242],
+                {
+}
+            ).addTo(marker_cluster_d41f7bc1f2ff543e7d4fb2666bcd1f9b);
+        
+    
+            var icon_2738040bb37d5db349cf06e95fff0193 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "flag",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_e4bc59f354345252c7983c0227d168a4.bindTooltip(
+                `<div>
+                     Alta Via delle Dolomiti Friulane
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_e4bc59f354345252c7983c0227d168a4.setIcon(icon_2738040bb37d5db349cf06e95fff0193);
+            
+    
+            var marker_210163dd5750337187279e32aafe3480 = L.marker(
+                [46.07948651731952, -81.37737062032103],
+                {
+}
+            ).addTo(marker_cluster_d41f7bc1f2ff543e7d4fb2666bcd1f9b);
+        
+    
+            var icon_cd101ec70aa7a759609cb95c8e28a62a = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "flag",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_210163dd5750337187279e32aafe3480.bindTooltip(
+                `<div>
+                     Killarney Provincial Park - La Cloche Silhouette Trail
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_210163dd5750337187279e32aafe3480.setIcon(icon_cd101ec70aa7a759609cb95c8e28a62a);
+            
+    
+            var marker_20920a03d5864954f76f3142a0bc3559 = L.marker(
+                [51.3532996257709, -116.32851257498262],
+                {
+}
+            ).addTo(marker_cluster_d41f7bc1f2ff543e7d4fb2666bcd1f9b);
+        
+    
+            var icon_103b47d8c6bd2afa7c76e339e30e9f06 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "flag",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_20920a03d5864954f76f3142a0bc3559.bindTooltip(
+                `<div>
+                     Yoho National Park - Lake O'Hara Loop
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_20920a03d5864954f76f3142a0bc3559.setIcon(icon_103b47d8c6bd2afa7c76e339e30e9f06);
+            
+    
+            var marker_1cc182534ce41d5ce7c50410ca0c7b76 = L.marker(
+                [46.118115177083325, 12.505885218750002],
+                {
+}
+            ).addTo(marker_cluster_d41f7bc1f2ff543e7d4fb2666bcd1f9b);
+        
+    
+            var icon_d952a90a886925c00ce6d3e8bfe99ed8 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "orange",
+  "iconColor": "white",
+  "icon": "flag",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_1cc182534ce41d5ce7c50410ca0c7b76.bindTooltip(
+                `<div>
+                     Piancavallo - Hike to Forcella Palantina
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_1cc182534ce41d5ce7c50410ca0c7b76.setIcon(icon_d952a90a886925c00ce6d3e8bfe99ed8);
+            
+    
+            marker_cluster_d41f7bc1f2ff543e7d4fb2666bcd1f9b.addTo(map_33e89cf4ce9a161318c55d64de99e003);
+        
+    
+            map_33e89cf4ce9a161318c55d64de99e003.fitBounds(
+                [[46.07948651731952, -116.32851257498262], [51.3532996257709, 12.514578429924242]],
+                {}
+            );
+        </script>
+<script>
+window.gpxCatalogSidePanelItems = [{"layer_name": "marker_5b370641da5762a5d0f736e50996032b", "layer_type": "hike", "title": "Val di Zoldo - Hike above Citt\u00e0 di Fiume", "subtitle": "Day hike", "image": "../val-di-zoldo-hike-above-citt-di-fiume/images/10_mountain_view-preview.jpg", "image_alt": "Val di Zoldo - Hike above Citt\u00e0 di Fiume", "meta": [{"label": "Difficulty", "value": "moderate"}, {"label": "Distance", "value": "14 km"}, {"label": "Total Ascent", "value": "1001 m"}, {"label": "Total Descent", "value": "983 m"}], "url": "../val-di-zoldo-hike-above-citt-di-fiume/"}, {"layer_name": "marker_e4bc59f354345252c7983c0227d168a4", "layer_type": "hike", "title": "Alta Via delle Dolomiti Friulane", "subtitle": "Multi-Day Hike \u00b7 4 stages", "image": "../alta-via-delle-dolomiti-friulane/images/view_of_campanile-preview.jpg", "image_alt": "Alta Via delle Dolomiti Friulane", "meta": [{"label": "Difficulty", "value": "hard"}, {"label": "Distance", "value": "38 km"}, {"label": "Total Ascent", "value": "4893 m"}, {"label": "Total Descent", "value": "5141 m"}], "url": "../alta-via-delle-dolomiti-friulane/"}, {"layer_name": "marker_210163dd5750337187279e32aafe3480", "layer_type": "hike", "title": "Killarney Provincial Park - La Cloche Silhouette Trail", "subtitle": "Multi-Day Hike \u00b7 5 stages", "image": "../killarney-provincial-park-la-cloche-silhouette-trail/images/20250920_180552-preview.jpg", "image_alt": "Killarney Provincial Park - La Cloche Silhouette Trail", "meta": [{"label": "Difficulty", "value": "hard"}, {"label": "Distance", "value": "81.8 km"}, {"label": "Total Ascent", "value": "3881 m"}, {"label": "Total Descent", "value": "4272 m"}], "url": "../killarney-provincial-park-la-cloche-silhouette-trail/"}, {"layer_name": "marker_20920a03d5864954f76f3142a0bc3559", "layer_type": "hike", "title": "Yoho National Park - Lake O'Hara Loop", "subtitle": "Day hike", "image": "../yoho-national-park-lake-o-hara-loop/images/all-lakes-view-preview.jpg", "image_alt": "Yoho National Park - Lake O'Hara Loop", "meta": [{"label": "Difficulty", "value": "hard"}, {"label": "Distance", "value": "13.9 km"}, {"label": "Total Ascent", "value": "1146 m"}, {"label": "Total Descent", "value": "1137 m"}], "url": "../yoho-national-park-lake-o-hara-loop/"}, {"layer_name": "marker_1cc182534ce41d5ce7c50410ca0c7b76", "layer_type": "hike", "title": "Piancavallo - Hike to Forcella Palantina", "subtitle": "Day hike", "image": "../piancavallo-hike-to-forcella-palantina/images/bivio-preview.jpg", "image_alt": "Piancavallo - Hike to Forcella Palantina", "meta": [{"label": "Difficulty", "value": "moderate"}, {"label": "Distance", "value": "7.69 km"}, {"label": "Total Ascent", "value": "1037 m"}, {"label": "Total Descent", "value": "1061 m"}], "url": "../piancavallo-hike-to-forcella-palantina/"}];
+
+function gpxCatalogUpdateSidePanel(item) {
+  var panel = document.getElementById('map-side-panel');
+  if (!panel) {
+    return;
+  }
+
+  var metaHtml = item.meta.map(function(row) {
+    return '<div class="panel-meta-row"><span class="panel-meta-label">' +
+      row.label + '</span><span>' + row.value + '</span></div>';
+  }).join('');
+
+  var linkHtml = item.url ?
+    '<a class="button" href="' + item.url + '">Open hike</a>' : '';
+
+  panel.innerHTML =
+    '<div class="panel-header">' +
+      '<h2>' + item.title + '</h2>' +
+      '<p>' + item.subtitle + '</p>' +
+    '</div>' +
+    '<div class="panel-image-wrap">' +
+      '<img class="panel-image" src="' + item.image + '" alt="' + item.image_alt + '">' +
+    '</div>' +
+    '<div class="panel-meta">' + metaHtml + '</div>' +
+    linkHtml;
+}
+
+function gpxCatalogRegisterSidePanelHandlers() {
+  if (!window.gpxCatalogSidePanelItems) {
+    return;
+  }
+  window.gpxCatalogSidePanelItems.forEach(function(item) {
+    var layer = window[item.layer_name];
+    if (!layer || !layer.on) {
+      return;
+    }
+    layer.on('click', function() {
+      gpxCatalogUpdateSidePanel(item);
+    });
+  });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  gpxCatalogRegisterSidePanelHandlers();
+});
+</script>
+
+</div>
+
+    </main>
+  </body>
+</html>

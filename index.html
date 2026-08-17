@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Hikes</title>
+    <title>GPX.CATALOG</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -16,97 +16,86 @@
       </a>
       <div class="container nav-bar">
         <nav>
-          <a href="./">Hikes</a>
+          <a href="./">Home</a>
+          <a href="map/">Explore</a>
+          <a href="hikes/">Hikes</a>
         </nav>
       </div>
     </header>
 
     <main class="container">
       
-<section class="hero-panel">
-  <h1>Explore the trails</h1>
-  <p>Browse published hiking routes with interactive maps and gallery photos.</p>
+<section class="landing-hero landing-hero--image">
+  <img class="landing-hero-image" src="killarney-provincial-park-la-cloche-silhouette-trail/images/20250920_180552-preview.jpg" alt="Featured hiking landscape">
+  <div class="landing-hero-overlay" aria-hidden="true"></div>
+  <div class="landing-hero-content">
+    <p class="eyebrow">GPX.CATALOG / TRAIL NOTES</p>
+    <h1>Explore.<br>Discover.<br>Share.</h1>
+    <p>Thoughtful routes, honest trail details, and the photographs that make a day outside stay with you.</p>
+    <div class="hero-actions">
+      <a class="button" href="hikes/">Browse all hikes</a>
+      <a class="text-link" href="map/">Explore the map <span aria-hidden="true">&#8594;</span></a>
+    </div>
+  </div>
 </section>
 
 
-<div class="cards">
-  
-  <article class="card">
+<section class="landing-section">
+  <div class="section-heading"><div><p class="eyebrow">Handpicked routes</p><h2>Featured hikes</h2></div><a class="text-link" href="hikes/">View all <span aria-hidden="true">&#8594;</span></a></div>
+  <div class="cards cards-featured">
     
-    <a class="card-image-link" href="val-di-zoldo-hike-above-citt-di-fiume/">
-      <img class="card-image" src="val-di-zoldo-hike-above-citt-di-fiume/images/10_mountain_view-preview.jpg" alt="Val di Zoldo - Hike above Città di Fiume" loading="lazy">
-    </a>
+    <article class="card">
+      <a class="card-image-link" href="killarney-provincial-park-la-cloche-silhouette-trail/"><img class="card-image" src="killarney-provincial-park-la-cloche-silhouette-trail/images/20250920_180552-preview.jpg" alt="Killarney Provincial Park - La Cloche Silhouette Trail" loading="lazy"></a>
+      <div class="card-body"><p class="card-kicker">5 stages</p><h3><a href="killarney-provincial-park-la-cloche-silhouette-trail/">Killarney Provincial Park - La Cloche Silhouette Trail</a></h3><span class="badge badge-hard">hard</span><p>A rugged 5-day backpacking loop through Killarney Provincial Park, known for its white quartzite ridges, clear lakes, and dense boreal forest.
+</p></div>
+    </article>
     
-    <div class="card-body">
-      <h2><a href="val-di-zoldo-hike-above-citt-di-fiume/">Val di Zoldo - Hike above Città di Fiume</a></h2>
-      <span class="badge badge-moderate">moderate</span>
-      <p>A wintery day hike with wonderful views of the Dolomites
-</p>
-      <a class="button" href="val-di-zoldo-hike-above-citt-di-fiume/">Open hike</a>
-    </div>
-  </article>
-  
-  <article class="card">
+    <article class="card">
+      <a class="card-image-link" href="alta-via-delle-dolomiti-friulane/"><img class="card-image" src="alta-via-delle-dolomiti-friulane/images/view_of_campanile-preview.jpg" alt="Alta Via delle Dolomiti Friulane" loading="lazy"></a>
+      <div class="card-body"><p class="card-kicker">4 stages</p><h3><a href="alta-via-delle-dolomiti-friulane/">Alta Via delle Dolomiti Friulane</a></h3><span class="badge badge-hard">hard</span><p>A rugged 4-day loop around the wild dolomites of the Friuli-Venezia-Giulia region.
+</p></div>
+    </article>
     
-    <a class="card-image-link" href="alta-via-delle-dolomiti-friulane/">
-      <img class="card-image" src="alta-via-delle-dolomiti-friulane/images/view_of_campanile-preview.jpg" alt="Alta Via delle Dolomiti Friulane" loading="lazy">
-    </a>
+    <article class="card">
+      <a class="card-image-link" href="yoho-national-park-lake-o-hara-loop/"><img class="card-image" src="yoho-national-park-lake-o-hara-loop/images/all-lakes-view-preview.jpg" alt="Yoho National Park - Lake O&#39;Hara Loop" loading="lazy"></a>
+      <div class="card-body"><p class="card-kicker">1 stage</p><h3><a href="yoho-national-park-lake-o-hara-loop/">Yoho National Park - Lake O&#39;Hara Loop</a></h3><span class="badge badge-hard">hard</span><p>A stunning day hike loop around Lake O&#39;Hara with two epic ascents.
+</p></div>
+    </article>
     
-    <div class="card-body">
-      <h2><a href="alta-via-delle-dolomiti-friulane/">Alta Via delle Dolomiti Friulane</a></h2>
-      <span class="badge badge-hard">hard</span>
-      <p>A rugged 4-day loop around the wild dolomites of the Friuli-Venezia-Giulia region.
-</p>
-      <a class="button" href="alta-via-delle-dolomiti-friulane/">Open hike</a>
-    </div>
-  </article>
-  
-  <article class="card">
+  </div>
+</section>
+
+
+<section class="landing-section map-preview-section">
+  <div class="section-heading"><div><p class="eyebrow">Find your next line</p><h2>Routes, at a glance.</h2></div><a class="text-link" href="map/">Open full map <span aria-hidden="true">&#8594;</span></a></div>
+  <a class="map-preview-link" href="map/"><img src="static/map_token_image.png" alt="Topographic overview of the catalog's hiking routes"></a>
+</section>
+
+
+<section class="landing-section">
+  <div class="section-heading"><div><p class="eyebrow">Recently added</p><h2>Fresh from the trail.</h2></div><a class="text-link" href="hikes/">See the catalog <span aria-hidden="true">&#8594;</span></a></div>
+  <div class="cards cards-latest">
     
-    <a class="card-image-link" href="killarney-provincial-park-la-cloche-silhouette-trail/">
-      <img class="card-image" src="killarney-provincial-park-la-cloche-silhouette-trail/images/20250920_180552-preview.jpg" alt="Killarney Provincial Park - La Cloche Silhouette Trail" loading="lazy">
-    </a>
+    <article class="card card-horizontal">
+      <a class="card-image-link" href="killarney-provincial-park-la-cloche-silhouette-trail/"><img class="card-image" src="killarney-provincial-park-la-cloche-silhouette-trail/images/20250920_180552-preview.jpg" alt="Killarney Provincial Park - La Cloche Silhouette Trail" loading="lazy"></a>
+      <div class="card-body"><p class="card-kicker">81.8 km / hard</p><h3><a href="killarney-provincial-park-la-cloche-silhouette-trail/">Killarney Provincial Park - La Cloche Silhouette Trail</a></h3><p>A rugged 5-day backpacking loop through Killarney Provincial Park, known for its white quartzite ridges, clear lakes, and dense boreal forest.
+</p></div>
+    </article>
     
-    <div class="card-body">
-      <h2><a href="killarney-provincial-park-la-cloche-silhouette-trail/">Killarney Provincial Park - La Cloche Silhouette Trail</a></h2>
-      <span class="badge badge-hard">hard</span>
-      <p>A rugged 5-day backpacking loop through Killarney Provincial Park, known for its white quartzite ridges, clear lakes, and dense boreal forest.
-</p>
-      <a class="button" href="killarney-provincial-park-la-cloche-silhouette-trail/">Open hike</a>
-    </div>
-  </article>
-  
-  <article class="card">
+    <article class="card card-horizontal">
+      <a class="card-image-link" href="yoho-national-park-lake-o-hara-loop/"><img class="card-image" src="yoho-national-park-lake-o-hara-loop/images/all-lakes-view-preview.jpg" alt="Yoho National Park - Lake O&#39;Hara Loop" loading="lazy"></a>
+      <div class="card-body"><p class="card-kicker">13.9 km / hard</p><h3><a href="yoho-national-park-lake-o-hara-loop/">Yoho National Park - Lake O&#39;Hara Loop</a></h3><p>A stunning day hike loop around Lake O&#39;Hara with two epic ascents.
+</p></div>
+    </article>
     
-    <a class="card-image-link" href="yoho-national-park-lake-o-hara-loop/">
-      <img class="card-image" src="yoho-national-park-lake-o-hara-loop/images/all-lakes-view-preview.jpg" alt="Yoho National Park - Lake O&#39;Hara Loop" loading="lazy">
-    </a>
+    <article class="card card-horizontal">
+      <a class="card-image-link" href="val-di-zoldo-hike-above-citt-di-fiume/"><img class="card-image" src="val-di-zoldo-hike-above-citt-di-fiume/images/10_mountain_view-preview.jpg" alt="Val di Zoldo - Hike above Città di Fiume" loading="lazy"></a>
+      <div class="card-body"><p class="card-kicker">14.0 km / moderate</p><h3><a href="val-di-zoldo-hike-above-citt-di-fiume/">Val di Zoldo - Hike above Città di Fiume</a></h3><p>A wintery day hike with wonderful views of the Dolomites
+</p></div>
+    </article>
     
-    <div class="card-body">
-      <h2><a href="yoho-national-park-lake-o-hara-loop/">Yoho National Park - Lake O&#39;Hara Loop</a></h2>
-      <span class="badge badge-hard">hard</span>
-      <p>A stunning day hike loop around Lake O&#39;Hara with two epic ascents.
-</p>
-      <a class="button" href="yoho-national-park-lake-o-hara-loop/">Open hike</a>
-    </div>
-  </article>
-  
-  <article class="card">
-    
-    <a class="card-image-link" href="piancavallo-hike-to-forcella-palantina/">
-      <img class="card-image" src="piancavallo-hike-to-forcella-palantina/images/bivio-preview.jpg" alt="Piancavallo - Hike to Forcella Palantina" loading="lazy">
-    </a>
-    
-    <div class="card-body">
-      <h2><a href="piancavallo-hike-to-forcella-palantina/">Piancavallo - Hike to Forcella Palantina</a></h2>
-      <span class="badge badge-moderate">moderate</span>
-      <p>A day hike up to the rocky amphitheatre above Piancavallo
-</p>
-      <a class="button" href="piancavallo-hike-to-forcella-palantina/">Open hike</a>
-    </div>
-  </article>
-  
-</div>
+  </div>
+</section>
 
 
     </main>
