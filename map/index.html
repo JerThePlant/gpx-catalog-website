@@ -47,7 +47,7 @@
             <meta name="viewport" content="width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
             <style>
-                #map_33e89cf4ce9a161318c55d64de99e003 {
+                #map_172a00f88ddb63f1fbab717bf5eb5bdc {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -86,13 +86,13 @@
   <div class="map-panel-inner">
     
     
-            <div class="folium-map" id="map_33e89cf4ce9a161318c55d64de99e003" ></div>
+            <div class="folium-map" id="map_172a00f88ddb63f1fbab717bf5eb5bdc" ></div>
         
     <aside id="map-side-panel" class="side-panel">
       <div class="panel-empty">
         <h2>Select a hike</h2>
         <p>Select a hike on the map to start exploring. Click a marker to see its distance, elevation, and photos.</p>
-        <p class="panel-hint">5 hikes plotted</p>
+        <p class="panel-hint">10 hikes plotted</p>
         <ul class="panel-legend panel-legend--compact">
           <li><span class="legend-swatch legend-swatch--easy" aria-hidden="true"></span>Easy</li>
           <li><span class="legend-swatch legend-swatch--moderate" aria-hidden="true"></span>Moderate</li>
@@ -103,8 +103,8 @@
   </div>
   <script>
     
-            var map_33e89cf4ce9a161318c55d64de99e003 = L.map(
-                "map_33e89cf4ce9a161318c55d64de99e003",
+            var map_172a00f88ddb63f1fbab717bf5eb5bdc = L.map(
+                "map_172a00f88ddb63f1fbab717bf5eb5bdc",
                 {
                     center: [0.0, 0.0],
                     crs: L.CRS.EPSG3857,
@@ -121,7 +121,7 @@
 
         
     
-            var tile_layer_d4f2ce00aff50e7607904cf7c7627315 = L.tileLayer(
+            var tile_layer_78cb8b36536c059359666d8c5f89739a = L.tileLayer(
                 "https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png",
                 {
   "minZoom": 0,
@@ -138,10 +138,10 @@
             );
         
     
-            tile_layer_d4f2ce00aff50e7607904cf7c7627315.addTo(map_33e89cf4ce9a161318c55d64de99e003);
+            tile_layer_78cb8b36536c059359666d8c5f89739a.addTo(map_172a00f88ddb63f1fbab717bf5eb5bdc);
         
     
-            var tile_layer_219ad5cb3c31259db4ade9bf7a937e9f = L.tileLayer(
+            var tile_layer_db160d6b9fd57713547038578b9a3718 = L.tileLayer(
                 "https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png",
                 {
   "minZoom": 0,
@@ -158,40 +158,113 @@
             );
         
     
-            var layer_control_c572c4ce954687c71456195e03241551_layers = {
+            var layer_control_7b038cd00699e91736dff3af21f1e6be_layers = {
                 base_layers : {
-                    "CyclOSM" : tile_layer_d4f2ce00aff50e7607904cf7c7627315,
-                    "OpenTopoMap" : tile_layer_219ad5cb3c31259db4ade9bf7a937e9f,
+                    "CyclOSM" : tile_layer_78cb8b36536c059359666d8c5f89739a,
+                    "OpenTopoMap" : tile_layer_db160d6b9fd57713547038578b9a3718,
                 },
                 overlays :  {
                 },
             };
-            let layer_control_c572c4ce954687c71456195e03241551 = L.control.layers(
-                layer_control_c572c4ce954687c71456195e03241551_layers.base_layers,
-                layer_control_c572c4ce954687c71456195e03241551_layers.overlays,
+            let layer_control_7b038cd00699e91736dff3af21f1e6be = L.control.layers(
+                layer_control_7b038cd00699e91736dff3af21f1e6be_layers.base_layers,
+                layer_control_7b038cd00699e91736dff3af21f1e6be_layers.overlays,
                 {
   "position": "topright",
   "collapsed": true,
   "autoZIndex": true,
 }
-            ).addTo(map_33e89cf4ce9a161318c55d64de99e003);
+            ).addTo(map_172a00f88ddb63f1fbab717bf5eb5bdc);
 
         
     
-            var marker_cluster_d41f7bc1f2ff543e7d4fb2666bcd1f9b = L.markerClusterGroup(
+            var marker_cluster_7a20f284ff587c9778eecaba863f4eb6 = L.markerClusterGroup(
                 {
+}
+            );
+            marker_cluster_7a20f284ff587c9778eecaba863f4eb6.options.iconCreateFunction =
+                function(cluster) {
+        var childCount = cluster.getChildCount();
+        return L.divIcon({
+            html: '<div style="background-color: rgba(218, 50, 50, 0.4); display: flex; justify-content: center; align-items: center; border-radius: 50%; width: 40px; height: 40px;">' +
+                  '<div style="background-color: rgba(218, 50, 50, 1); color: white; border-radius: 50%; width: 30px; height: 30px; display: flex; justify-content: center; align-items: center; font-weight: bold;">' + 
+                  '<span>' + childCount + '</span></div></div>',
+            className: 'custom-red-cluster',
+            iconSize: new L.Point(40, 40)
+        });
+    };
+        
+    
+            var marker_6234e988c4778d40b50978ae0c6bc67f = L.marker(
+                [45.829560120471996, 7.606580572750241],
+                {
+}
+            ).addTo(marker_cluster_7a20f284ff587c9778eecaba863f4eb6);
+        
+    
+            var icon_33f691f8c8251494e36054bb3dbdd25a = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flag",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
 }
             );
         
     
-            var marker_5b370641da5762a5d0f736e50996032b = L.marker(
-                [46.44872000263799, 12.117831609375003],
+            marker_6234e988c4778d40b50978ae0c6bc67f.bindTooltip(
+                `<div>
+                     Alta Via Dei Giganti
+                 </div>`,
                 {
+  "sticky": true,
 }
-            ).addTo(marker_cluster_d41f7bc1f2ff543e7d4fb2666bcd1f9b);
+            );
         
     
-            var icon_63439da72e2c82f758f66e747259b7d7 = L.AwesomeMarkers.icon(
+                marker_6234e988c4778d40b50978ae0c6bc67f.setIcon(icon_33f691f8c8251494e36054bb3dbdd25a);
+            
+    
+            var marker_2d016e056e0605cab99a4b241e67a85f = L.marker(
+                [60.04357578125001, 6.457072419034091],
+                {
+}
+            ).addTo(marker_cluster_7a20f284ff587c9778eecaba863f4eb6);
+        
+    
+            var icon_f7cc49a0009233af9088cda35d3cb16c = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "flag",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_2d016e056e0605cab99a4b241e67a85f.bindTooltip(
+                `<div>
+                     Norway - Hike to Buarbreen Glacier
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_2d016e056e0605cab99a4b241e67a85f.setIcon(icon_f7cc49a0009233af9088cda35d3cb16c);
+            
+    
+            var marker_4a0a2e59d1269be3c82d93b81bf0b9ae = L.marker(
+                [59.03991334375, 6.621615758996211],
+                {
+}
+            ).addTo(marker_cluster_7a20f284ff587c9778eecaba863f4eb6);
+        
+    
+            var icon_5ae26c646cc64f2fd3b4cd4a9cd4ab22 = L.AwesomeMarkers.icon(
                 {
   "markerColor": "orange",
   "iconColor": "white",
@@ -202,9 +275,9 @@
             );
         
     
-            marker_5b370641da5762a5d0f736e50996032b.bindTooltip(
+            marker_4a0a2e59d1269be3c82d93b81bf0b9ae.bindTooltip(
                 `<div>
-                     Val di Zoldo - Hike above Città di Fiume
+                     Norway - Kjeragbolten Hike
                  </div>`,
                 {
   "sticky": true,
@@ -212,17 +285,48 @@
             );
         
     
-                marker_5b370641da5762a5d0f736e50996032b.setIcon(icon_63439da72e2c82f758f66e747259b7d7);
+                marker_4a0a2e59d1269be3c82d93b81bf0b9ae.setIcon(icon_5ae26c646cc64f2fd3b4cd4a9cd4ab22);
             
     
-            var marker_e4bc59f354345252c7983c0227d168a4 = L.marker(
+            var marker_d082caf11d283cd0af024b1dec8bfd7e = L.marker(
+                [58.98845320312502, 6.162365015151517],
+                {
+}
+            ).addTo(marker_cluster_7a20f284ff587c9778eecaba863f4eb6);
+        
+    
+            var icon_26f444fd02da50f6a0dd768715e8fdf7 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "flag",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_d082caf11d283cd0af024b1dec8bfd7e.bindTooltip(
+                `<div>
+                     Norway - Preikestolen Hike
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_d082caf11d283cd0af024b1dec8bfd7e.setIcon(icon_26f444fd02da50f6a0dd768715e8fdf7);
+            
+    
+            var marker_fb245e9611956b8a63bd65634fb95852 = L.marker(
                 [46.39411534517045, 12.514578429924242],
                 {
 }
-            ).addTo(marker_cluster_d41f7bc1f2ff543e7d4fb2666bcd1f9b);
+            ).addTo(marker_cluster_7a20f284ff587c9778eecaba863f4eb6);
         
     
-            var icon_2738040bb37d5db349cf06e95fff0193 = L.AwesomeMarkers.icon(
+            var icon_842bba5133af7d3fdf559e664e031a46 = L.AwesomeMarkers.icon(
                 {
   "markerColor": "red",
   "iconColor": "white",
@@ -233,9 +337,9 @@
             );
         
     
-            marker_e4bc59f354345252c7983c0227d168a4.bindTooltip(
+            marker_fb245e9611956b8a63bd65634fb95852.bindTooltip(
                 `<div>
-                     Alta Via delle Dolomiti Friulane
+                     Anello delle Dolomiti Friulane
                  </div>`,
                 {
   "sticky": true,
@@ -243,19 +347,19 @@
             );
         
     
-                marker_e4bc59f354345252c7983c0227d168a4.setIcon(icon_2738040bb37d5db349cf06e95fff0193);
+                marker_fb245e9611956b8a63bd65634fb95852.setIcon(icon_842bba5133af7d3fdf559e664e031a46);
             
     
-            var marker_210163dd5750337187279e32aafe3480 = L.marker(
-                [46.07948651731952, -81.37737062032103],
+            var marker_6b4d6ef93cadf5361b3739c5795f6bee = L.marker(
+                [46.61791067187501, 12.299719281250002],
                 {
 }
-            ).addTo(marker_cluster_d41f7bc1f2ff543e7d4fb2666bcd1f9b);
+            ).addTo(marker_cluster_7a20f284ff587c9778eecaba863f4eb6);
         
     
-            var icon_cd101ec70aa7a759609cb95c8e28a62a = L.AwesomeMarkers.icon(
+            var icon_036c9e538eee83c6ad398f3b5c72ee04 = L.AwesomeMarkers.icon(
                 {
-  "markerColor": "red",
+  "markerColor": "green",
   "iconColor": "white",
   "icon": "flag",
   "prefix": "fa",
@@ -264,9 +368,9 @@
             );
         
     
-            marker_210163dd5750337187279e32aafe3480.bindTooltip(
+            marker_6b4d6ef93cadf5361b3739c5795f6bee.bindTooltip(
                 `<div>
-                     Killarney Provincial Park - La Cloche Silhouette Trail
+                     Italy - Tre Cime di Lavaredo & Cadini di Misurina
                  </div>`,
                 {
   "sticky": true,
@@ -274,48 +378,17 @@
             );
         
     
-                marker_210163dd5750337187279e32aafe3480.setIcon(icon_cd101ec70aa7a759609cb95c8e28a62a);
+                marker_6b4d6ef93cadf5361b3739c5795f6bee.setIcon(icon_036c9e538eee83c6ad398f3b5c72ee04);
             
     
-            var marker_20920a03d5864954f76f3142a0bc3559 = L.marker(
-                [51.3532996257709, -116.32851257498262],
-                {
-}
-            ).addTo(marker_cluster_d41f7bc1f2ff543e7d4fb2666bcd1f9b);
-        
-    
-            var icon_103b47d8c6bd2afa7c76e339e30e9f06 = L.AwesomeMarkers.icon(
-                {
-  "markerColor": "red",
-  "iconColor": "white",
-  "icon": "flag",
-  "prefix": "fa",
-  "extraClasses": "fa-rotate-0",
-}
-            );
-        
-    
-            marker_20920a03d5864954f76f3142a0bc3559.bindTooltip(
-                `<div>
-                     Yoho National Park - Lake O'Hara Loop
-                 </div>`,
-                {
-  "sticky": true,
-}
-            );
-        
-    
-                marker_20920a03d5864954f76f3142a0bc3559.setIcon(icon_103b47d8c6bd2afa7c76e339e30e9f06);
-            
-    
-            var marker_1cc182534ce41d5ce7c50410ca0c7b76 = L.marker(
+            var marker_3366246de180a48d733ded9c2182ac7c = L.marker(
                 [46.118115177083325, 12.505885218750002],
                 {
 }
-            ).addTo(marker_cluster_d41f7bc1f2ff543e7d4fb2666bcd1f9b);
+            ).addTo(marker_cluster_7a20f284ff587c9778eecaba863f4eb6);
         
     
-            var icon_d952a90a886925c00ce6d3e8bfe99ed8 = L.AwesomeMarkers.icon(
+            var icon_82d7d6cf9a075631f67bef514173154e = L.AwesomeMarkers.icon(
                 {
   "markerColor": "orange",
   "iconColor": "white",
@@ -326,7 +399,7 @@
             );
         
     
-            marker_1cc182534ce41d5ce7c50410ca0c7b76.bindTooltip(
+            marker_3366246de180a48d733ded9c2182ac7c.bindTooltip(
                 `<div>
                      Piancavallo - Hike to Forcella Palantina
                  </div>`,
@@ -336,19 +409,112 @@
             );
         
     
-                marker_1cc182534ce41d5ce7c50410ca0c7b76.setIcon(icon_d952a90a886925c00ce6d3e8bfe99ed8);
+                marker_3366246de180a48d733ded9c2182ac7c.setIcon(icon_82d7d6cf9a075631f67bef514173154e);
             
     
-            marker_cluster_d41f7bc1f2ff543e7d4fb2666bcd1f9b.addTo(map_33e89cf4ce9a161318c55d64de99e003);
+            var marker_40f07b32b2be347df07a7423206fa367 = L.marker(
+                [46.44872000263799, 12.117831609375003],
+                {
+}
+            ).addTo(marker_cluster_7a20f284ff587c9778eecaba863f4eb6);
         
     
-            map_33e89cf4ce9a161318c55d64de99e003.fitBounds(
-                [[46.07948651731952, -116.32851257498262], [51.3532996257709, 12.514578429924242]],
+            var icon_a7a60c1eb20dbc1beceeff283fb560f1 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "orange",
+  "iconColor": "white",
+  "icon": "flag",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_40f07b32b2be347df07a7423206fa367.bindTooltip(
+                `<div>
+                     Val di Zoldo - Hike above Città di Fiume
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_40f07b32b2be347df07a7423206fa367.setIcon(icon_a7a60c1eb20dbc1beceeff283fb560f1);
+            
+    
+            var marker_7d360cd78466a24a9b98448b1a0e017b = L.marker(
+                [51.3532996257709, -116.32851257498262],
+                {
+}
+            ).addTo(marker_cluster_7a20f284ff587c9778eecaba863f4eb6);
+        
+    
+            var icon_5bd1b0f7bd7d0daf5944671f693c14c0 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "flag",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_7d360cd78466a24a9b98448b1a0e017b.bindTooltip(
+                `<div>
+                     Yoho National Park - Lake O'Hara Loop
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_7d360cd78466a24a9b98448b1a0e017b.setIcon(icon_5bd1b0f7bd7d0daf5944671f693c14c0);
+            
+    
+            var marker_48f44d5c12b50b790ce71dd2f0cfc957 = L.marker(
+                [46.07948651731952, -81.37737062032103],
+                {
+}
+            ).addTo(marker_cluster_7a20f284ff587c9778eecaba863f4eb6);
+        
+    
+            var icon_52f4b5f11e106ccf8b7b6650cff32e67 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "flag",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_48f44d5c12b50b790ce71dd2f0cfc957.bindTooltip(
+                `<div>
+                     Killarney Provincial Park - La Cloche Silhouette Trail
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_48f44d5c12b50b790ce71dd2f0cfc957.setIcon(icon_52f4b5f11e106ccf8b7b6650cff32e67);
+            
+    
+            marker_cluster_7a20f284ff587c9778eecaba863f4eb6.addTo(map_172a00f88ddb63f1fbab717bf5eb5bdc);
+        
+    
+            map_172a00f88ddb63f1fbab717bf5eb5bdc.fitBounds(
+                [[45.829560120471996, -116.32851257498262], [60.04357578125001, 12.514578429924242]],
                 {}
             );
         </script>
 <script>
-window.gpxCatalogSidePanelItems = [{"layer_name": "marker_5b370641da5762a5d0f736e50996032b", "layer_type": "hike", "title": "Val di Zoldo - Hike above Citt\u00e0 di Fiume", "subtitle": "Day hike", "image": "../val-di-zoldo-hike-above-citt-di-fiume/images/10_mountain_view-preview.jpg", "image_alt": "Val di Zoldo - Hike above Citt\u00e0 di Fiume", "meta": [{"label": "Difficulty", "value": "moderate"}, {"label": "Distance", "value": "14 km"}, {"label": "Total Ascent", "value": "1001 m"}, {"label": "Total Descent", "value": "983 m"}], "url": "../val-di-zoldo-hike-above-citt-di-fiume/"}, {"layer_name": "marker_e4bc59f354345252c7983c0227d168a4", "layer_type": "hike", "title": "Alta Via delle Dolomiti Friulane", "subtitle": "Multi-Day Hike \u00b7 4 stages", "image": "../alta-via-delle-dolomiti-friulane/images/view_of_campanile-preview.jpg", "image_alt": "Alta Via delle Dolomiti Friulane", "meta": [{"label": "Difficulty", "value": "hard"}, {"label": "Distance", "value": "38 km"}, {"label": "Total Ascent", "value": "4893 m"}, {"label": "Total Descent", "value": "5141 m"}], "url": "../alta-via-delle-dolomiti-friulane/"}, {"layer_name": "marker_210163dd5750337187279e32aafe3480", "layer_type": "hike", "title": "Killarney Provincial Park - La Cloche Silhouette Trail", "subtitle": "Multi-Day Hike \u00b7 5 stages", "image": "../killarney-provincial-park-la-cloche-silhouette-trail/images/20250920_180552-preview.jpg", "image_alt": "Killarney Provincial Park - La Cloche Silhouette Trail", "meta": [{"label": "Difficulty", "value": "hard"}, {"label": "Distance", "value": "81.8 km"}, {"label": "Total Ascent", "value": "3881 m"}, {"label": "Total Descent", "value": "4272 m"}], "url": "../killarney-provincial-park-la-cloche-silhouette-trail/"}, {"layer_name": "marker_20920a03d5864954f76f3142a0bc3559", "layer_type": "hike", "title": "Yoho National Park - Lake O'Hara Loop", "subtitle": "Day hike", "image": "../yoho-national-park-lake-o-hara-loop/images/all-lakes-view-preview.jpg", "image_alt": "Yoho National Park - Lake O'Hara Loop", "meta": [{"label": "Difficulty", "value": "hard"}, {"label": "Distance", "value": "13.9 km"}, {"label": "Total Ascent", "value": "1146 m"}, {"label": "Total Descent", "value": "1137 m"}], "url": "../yoho-national-park-lake-o-hara-loop/"}, {"layer_name": "marker_1cc182534ce41d5ce7c50410ca0c7b76", "layer_type": "hike", "title": "Piancavallo - Hike to Forcella Palantina", "subtitle": "Day hike", "image": "../piancavallo-hike-to-forcella-palantina/images/bivio-preview.jpg", "image_alt": "Piancavallo - Hike to Forcella Palantina", "meta": [{"label": "Difficulty", "value": "moderate"}, {"label": "Distance", "value": "7.69 km"}, {"label": "Total Ascent", "value": "1037 m"}, {"label": "Total Descent", "value": "1061 m"}], "url": "../piancavallo-hike-to-forcella-palantina/"}];
+window.gpxCatalogSidePanelItems = [{"layer_name": "marker_6234e988c4778d40b50978ae0c6bc67f", "layer_type": "hike", "title": "Alta Via Dei Giganti", "subtitle": "Multi-Day Hike \u00b7 6 stages", "image": "../alta-via-dei-giganti/images/20210907_092007-preview.jpg", "image_alt": "Alta Via Dei Giganti", "meta": [{"label": "Difficulty", "value": "difficult"}, {"label": "Distance", "value": "55 km"}, {"label": "Total Ascent", "value": "5108 m"}, {"label": "Total Descent", "value": "5044 m"}], "url": "../alta-via-dei-giganti/"}, {"layer_name": "marker_2d016e056e0605cab99a4b241e67a85f", "layer_type": "hike", "title": "Norway - Hike to Buarbreen Glacier", "subtitle": "Day hike", "image": "../norway-hike-to-buarbreen-glacier/images/20220724_101822-preview.jpg", "image_alt": "Norway - Hike to Buarbreen Glacier", "meta": [{"label": "Difficulty", "value": "easy"}, {"label": "Distance", "value": "4.97 km"}, {"label": "Total Ascent", "value": "423 m"}, {"label": "Total Descent", "value": "424 m"}], "url": "../norway-hike-to-buarbreen-glacier/"}, {"layer_name": "marker_4a0a2e59d1269be3c82d93b81bf0b9ae", "layer_type": "hike", "title": "Norway - Kjeragbolten Hike", "subtitle": "Day hike", "image": "../norway-kjeragbolten-hike/images/20220727_204333-preview.jpg", "image_alt": "Norway - Kjeragbolten Hike", "meta": [{"label": "Difficulty", "value": "moderate"}, {"label": "Distance", "value": "10.4 km"}, {"label": "Total Ascent", "value": "806 m"}, {"label": "Total Descent", "value": "806 m"}], "url": "../norway-kjeragbolten-hike/"}, {"layer_name": "marker_d082caf11d283cd0af024b1dec8bfd7e", "layer_type": "hike", "title": "Norway - Preikestolen Hike", "subtitle": "Day hike", "image": "../norway-preikestolen-hike/images/20220729_104817-preview.jpg", "image_alt": "Norway - Preikestolen Hike", "meta": [{"label": "Difficulty", "value": "easy"}, {"label": "Distance", "value": "7.95 km"}, {"label": "Total Ascent", "value": "606 m"}, {"label": "Total Descent", "value": "610 m"}], "url": "../norway-preikestolen-hike/"}, {"layer_name": "marker_fb245e9611956b8a63bd65634fb95852", "layer_type": "hike", "title": "Anello delle Dolomiti Friulane", "subtitle": "Multi-Day Hike \u00b7 4 stages", "image": "../anello-delle-dolomiti-friulane/images/view_of_campanile-preview.jpg", "image_alt": "Anello delle Dolomiti Friulane", "meta": [{"label": "Difficulty", "value": "hard"}, {"label": "Distance", "value": "38 km"}, {"label": "Total Ascent", "value": "4893 m"}, {"label": "Total Descent", "value": "5141 m"}], "url": "../anello-delle-dolomiti-friulane/"}, {"layer_name": "marker_6b4d6ef93cadf5361b3739c5795f6bee", "layer_type": "hike", "title": "Italy - Tre Cime di Lavaredo & Cadini di Misurina", "subtitle": "Day hike", "image": "../italy-tre-cime-di-lavaredo-cadini-di-misurina/images/20221031_125106-preview.jpg", "image_alt": "Italy - Tre Cime di Lavaredo & Cadini di Misurina", "meta": [{"label": "Difficulty", "value": "easy"}, {"label": "Distance", "value": "12.3 km"}, {"label": "Total Ascent", "value": "714 m"}, {"label": "Total Descent", "value": "714 m"}], "url": "../italy-tre-cime-di-lavaredo-cadini-di-misurina/"}, {"layer_name": "marker_3366246de180a48d733ded9c2182ac7c", "layer_type": "hike", "title": "Piancavallo - Hike to Forcella Palantina", "subtitle": "Day hike", "image": "../piancavallo-hike-to-forcella-palantina/images/bivio-preview.jpg", "image_alt": "Piancavallo - Hike to Forcella Palantina", "meta": [{"label": "Difficulty", "value": "moderate"}, {"label": "Distance", "value": "7.69 km"}, {"label": "Total Ascent", "value": "1037 m"}, {"label": "Total Descent", "value": "1061 m"}], "url": "../piancavallo-hike-to-forcella-palantina/"}, {"layer_name": "marker_40f07b32b2be347df07a7423206fa367", "layer_type": "hike", "title": "Val di Zoldo - Hike above Citt\u00e0 di Fiume", "subtitle": "Day hike", "image": "../val-di-zoldo-hike-above-citt-di-fiume/images/04_mountain_view-preview.jpg", "image_alt": "Val di Zoldo - Hike above Citt\u00e0 di Fiume", "meta": [{"label": "Difficulty", "value": "moderate"}, {"label": "Distance", "value": "14 km"}, {"label": "Total Ascent", "value": "1001 m"}, {"label": "Total Descent", "value": "983 m"}], "url": "../val-di-zoldo-hike-above-citt-di-fiume/"}, {"layer_name": "marker_7d360cd78466a24a9b98448b1a0e017b", "layer_type": "hike", "title": "Yoho National Park - Lake O'Hara Loop", "subtitle": "Day hike", "image": "../yoho-national-park-lake-o-hara-loop/images/lake-ohara-view-2-preview.jpg", "image_alt": "Yoho National Park - Lake O'Hara Loop", "meta": [{"label": "Difficulty", "value": "hard"}, {"label": "Distance", "value": "13.9 km"}, {"label": "Total Ascent", "value": "1146 m"}, {"label": "Total Descent", "value": "1137 m"}], "url": "../yoho-national-park-lake-o-hara-loop/"}, {"layer_name": "marker_48f44d5c12b50b790ce71dd2f0cfc957", "layer_type": "hike", "title": "Killarney Provincial Park - La Cloche Silhouette Trail", "subtitle": "Multi-Day Hike \u00b7 5 stages", "image": "../killarney-provincial-park-la-cloche-silhouette-trail/images/20250920_180552-preview.jpg", "image_alt": "Killarney Provincial Park - La Cloche Silhouette Trail", "meta": [{"label": "Difficulty", "value": "hard"}, {"label": "Distance", "value": "81.8 km"}, {"label": "Total Ascent", "value": "3859 m"}, {"label": "Total Descent", "value": "3860 m"}], "url": "../killarney-provincial-park-la-cloche-silhouette-trail/"}];
 
 function gpxCatalogUpdateSidePanel(item) {
   var panel = document.getElementById('map-side-panel');
