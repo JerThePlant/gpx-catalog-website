@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="gpx-catalog">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -47,7 +47,7 @@
             <meta name="viewport" content="width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
             <style>
-                #map_8f8f3646c814d97093a6bbe0d1b58b55 {
+                #map_f0b4465513f515ebe606a43d95758ac0 {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -83,16 +83,65 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/leaflet.markercluster.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/MarkerCluster.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/MarkerCluster.Default.css"/>
+  <!-- Mobile-only Map/Details tab toggle; hidden above the stacked-layout breakpoint via CSS -->
+<div class="mobile-view-toggle" role="tablist" aria-label="Map or details view">
+  <button type="button" class="mobile-view-btn active" data-view="map" role="tab" aria-selected="true">
+    <span class="mobile-view-arrow" aria-hidden="true">&#8249;</span><span class="mobile-view-label">Map</span>
+  </button>
+  <button type="button" class="mobile-view-btn" data-view="details" role="tab" aria-selected="false">Details</button>
+</div>
+<script>
+(function() {
+  var toggle = document.currentScript.previousElementSibling;
+  // .map-panel-inner is parsed after this script runs, so the lookup must wait for DOMContentLoaded.
+  document.addEventListener('DOMContentLoaded', function() {
+    var panelInner = toggle.parentElement.querySelector('.map-panel-inner');
+    if (!panelInner) {
+      return;
+    }
+    var mapBtn = toggle.querySelector('[data-view="map"]');
+    var mapLabel = mapBtn.querySelector('.mobile-view-label');
+
+    function setView(view) {
+      toggle.querySelectorAll('.mobile-view-btn').forEach(function(b) {
+        var active = b.dataset.view === view;
+        b.classList.toggle('active', active);
+        b.setAttribute('aria-selected', active ? 'true' : 'false');
+      });
+      panelInner.classList.toggle('mobile-view-map', view === 'map');
+      panelInner.classList.toggle('mobile-view-details', view === 'details');
+      mapLabel.textContent = view === 'details' ? 'Back to Map' : 'Map';
+      mapBtn.classList.toggle('mobile-view-btn--back', view === 'details');
+      // Leaflet caches its container size at init time (before this class change); a
+      // synthetic resize nudges it to recompute against the new CSS-driven height.
+      requestAnimationFrame(function() {
+        window.dispatchEvent(new Event('resize'));
+      });
+    }
+
+    setView('map');
+    toggle.addEventListener('click', function(e) {
+      var btn = e.target.closest('.mobile-view-btn');
+      if (!btn) {
+        return;
+      }
+      setView(btn.dataset.view);
+    });
+
+    window.gpxCatalogSetMobileView = setView;
+  });
+})();
+</script>
   <div class="map-panel-inner">
     
     
-            <div class="folium-map" id="map_8f8f3646c814d97093a6bbe0d1b58b55" ></div>
+            <div class="folium-map" id="map_f0b4465513f515ebe606a43d95758ac0" ></div>
         
     <aside id="map-side-panel" class="side-panel">
       <div class="panel-empty">
         <h2>Select a hike</h2>
         <p>Select a hike on the map to start exploring. Click a marker to see its distance, elevation, and photos.</p>
-        <p class="panel-hint">31 hikes plotted</p>
+        <p class="panel-hint">35 hikes plotted</p>
         <ul class="panel-legend panel-legend--compact">
           <li><span class="legend-swatch legend-swatch--easy" aria-hidden="true"></span>Easy</li>
           <li><span class="legend-swatch legend-swatch--moderate" aria-hidden="true"></span>Moderate</li>
@@ -103,8 +152,8 @@
   </div>
   <script>
     
-            var map_8f8f3646c814d97093a6bbe0d1b58b55 = L.map(
-                "map_8f8f3646c814d97093a6bbe0d1b58b55",
+            var map_f0b4465513f515ebe606a43d95758ac0 = L.map(
+                "map_f0b4465513f515ebe606a43d95758ac0",
                 {
                     center: [0.0, 0.0],
                     crs: L.CRS.EPSG3857,
@@ -121,7 +170,7 @@
 
         
     
-            var tile_layer_597e7fbd605c8032d7c19d387d87d90a = L.tileLayer(
+            var tile_layer_148f375471ebaeaa0cccd9f12a56ffcc = L.tileLayer(
                 "https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png",
                 {
   "minZoom": 0,
@@ -138,10 +187,10 @@
             );
         
     
-            tile_layer_597e7fbd605c8032d7c19d387d87d90a.addTo(map_8f8f3646c814d97093a6bbe0d1b58b55);
+            tile_layer_148f375471ebaeaa0cccd9f12a56ffcc.addTo(map_f0b4465513f515ebe606a43d95758ac0);
         
     
-            var tile_layer_5705d325053de2cf1b69e8246b33c707 = L.tileLayer(
+            var tile_layer_ccb18e8db17bf8a5cf7f8666a1c9ca3d = L.tileLayer(
                 "https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png",
                 {
   "minZoom": 0,
@@ -158,31 +207,31 @@
             );
         
     
-            var layer_control_95c3216587ecd333033ff6bed1fa36b3_layers = {
+            var layer_control_2a4aa1045b40340da2701e86711e4137_layers = {
                 base_layers : {
-                    "CyclOSM" : tile_layer_597e7fbd605c8032d7c19d387d87d90a,
-                    "OpenTopoMap" : tile_layer_5705d325053de2cf1b69e8246b33c707,
+                    "CyclOSM" : tile_layer_148f375471ebaeaa0cccd9f12a56ffcc,
+                    "OpenTopoMap" : tile_layer_ccb18e8db17bf8a5cf7f8666a1c9ca3d,
                 },
                 overlays :  {
                 },
             };
-            let layer_control_95c3216587ecd333033ff6bed1fa36b3 = L.control.layers(
-                layer_control_95c3216587ecd333033ff6bed1fa36b3_layers.base_layers,
-                layer_control_95c3216587ecd333033ff6bed1fa36b3_layers.overlays,
+            let layer_control_2a4aa1045b40340da2701e86711e4137 = L.control.layers(
+                layer_control_2a4aa1045b40340da2701e86711e4137_layers.base_layers,
+                layer_control_2a4aa1045b40340da2701e86711e4137_layers.overlays,
                 {
   "position": "topright",
   "collapsed": true,
   "autoZIndex": true,
 }
-            ).addTo(map_8f8f3646c814d97093a6bbe0d1b58b55);
+            ).addTo(map_f0b4465513f515ebe606a43d95758ac0);
 
         
     
-            var marker_cluster_439d1de5c11d2a7b707d99dd4919f984 = L.markerClusterGroup(
+            var marker_cluster_84b53bf84f7c3db41f820cb406a8767c = L.markerClusterGroup(
                 {
 }
             );
-            marker_cluster_439d1de5c11d2a7b707d99dd4919f984.options.iconCreateFunction =
+            marker_cluster_84b53bf84f7c3db41f820cb406a8767c.options.iconCreateFunction =
                 function(cluster) {
         var childCount = cluster.getChildCount();
         return L.divIcon({
@@ -195,14 +244,14 @@
     };
         
     
-            var marker_0b3e09286394d59728547c0e913aab3e = L.marker(
+            var marker_a321eacf7d454e95884b7f38d237aaf1 = L.marker(
                 [45.829560120471996, 7.606580572750241],
                 {
 }
-            ).addTo(marker_cluster_439d1de5c11d2a7b707d99dd4919f984);
+            ).addTo(marker_cluster_84b53bf84f7c3db41f820cb406a8767c);
         
     
-            var icon_68e04ac2afa2d21edba097bdbc9c8996 = L.AwesomeMarkers.icon(
+            var icon_a43cee38e5c5cc5f4018f40299786652 = L.AwesomeMarkers.icon(
                 {
   "markerColor": "blue",
   "iconColor": "white",
@@ -213,7 +262,7 @@
             );
         
     
-            marker_0b3e09286394d59728547c0e913aab3e.bindTooltip(
+            marker_a321eacf7d454e95884b7f38d237aaf1.bindTooltip(
                 `<div>
                      Italy - Alta Via Dei Giganti
                  </div>`,
@@ -223,17 +272,17 @@
             );
         
     
-                marker_0b3e09286394d59728547c0e913aab3e.setIcon(icon_68e04ac2afa2d21edba097bdbc9c8996);
+                marker_a321eacf7d454e95884b7f38d237aaf1.setIcon(icon_a43cee38e5c5cc5f4018f40299786652);
             
     
-            var marker_da3af2ca14b452320bc882c65fd3f72a = L.marker(
+            var marker_d0759aa80bbdd369e721fcc711caee9b = L.marker(
                 [60.04357578125001, 6.457072419034091],
                 {
 }
-            ).addTo(marker_cluster_439d1de5c11d2a7b707d99dd4919f984);
+            ).addTo(marker_cluster_84b53bf84f7c3db41f820cb406a8767c);
         
     
-            var icon_2e5c8b5f453a87e5436981f5ccd6983b = L.AwesomeMarkers.icon(
+            var icon_867395713a29716e8881a2b16a469ab8 = L.AwesomeMarkers.icon(
                 {
   "markerColor": "green",
   "iconColor": "white",
@@ -244,7 +293,7 @@
             );
         
     
-            marker_da3af2ca14b452320bc882c65fd3f72a.bindTooltip(
+            marker_d0759aa80bbdd369e721fcc711caee9b.bindTooltip(
                 `<div>
                      Norway - Hike to Buarbreen Glacier
                  </div>`,
@@ -254,17 +303,17 @@
             );
         
     
-                marker_da3af2ca14b452320bc882c65fd3f72a.setIcon(icon_2e5c8b5f453a87e5436981f5ccd6983b);
+                marker_d0759aa80bbdd369e721fcc711caee9b.setIcon(icon_867395713a29716e8881a2b16a469ab8);
             
     
-            var marker_f360ba9f587e08daac6e0542fb149f9b = L.marker(
+            var marker_f7b3b4fddaf09aa0e744e50e5fb9db13 = L.marker(
                 [59.03991334375, 6.621615758996211],
                 {
 }
-            ).addTo(marker_cluster_439d1de5c11d2a7b707d99dd4919f984);
+            ).addTo(marker_cluster_84b53bf84f7c3db41f820cb406a8767c);
         
     
-            var icon_f6c52dcca3116eb28e2a352adcc50540 = L.AwesomeMarkers.icon(
+            var icon_4c9b2d2f182f86aba6acf68024dafb43 = L.AwesomeMarkers.icon(
                 {
   "markerColor": "orange",
   "iconColor": "white",
@@ -275,7 +324,7 @@
             );
         
     
-            marker_f360ba9f587e08daac6e0542fb149f9b.bindTooltip(
+            marker_f7b3b4fddaf09aa0e744e50e5fb9db13.bindTooltip(
                 `<div>
                      Norway - Kjeragbolten Hike
                  </div>`,
@@ -285,17 +334,17 @@
             );
         
     
-                marker_f360ba9f587e08daac6e0542fb149f9b.setIcon(icon_f6c52dcca3116eb28e2a352adcc50540);
+                marker_f7b3b4fddaf09aa0e744e50e5fb9db13.setIcon(icon_4c9b2d2f182f86aba6acf68024dafb43);
             
     
-            var marker_00cfb1c02efc8279cdc646fd097a08ac = L.marker(
+            var marker_506e6f3eb6cc2d2a97e34fe9a69aa69b = L.marker(
                 [58.98845320312502, 6.162365015151517],
                 {
 }
-            ).addTo(marker_cluster_439d1de5c11d2a7b707d99dd4919f984);
+            ).addTo(marker_cluster_84b53bf84f7c3db41f820cb406a8767c);
         
     
-            var icon_ea929751bd4b85d5cb7652815ae1c756 = L.AwesomeMarkers.icon(
+            var icon_b2e836f7156182c06a32b7166082c250 = L.AwesomeMarkers.icon(
                 {
   "markerColor": "green",
   "iconColor": "white",
@@ -306,7 +355,7 @@
             );
         
     
-            marker_00cfb1c02efc8279cdc646fd097a08ac.bindTooltip(
+            marker_506e6f3eb6cc2d2a97e34fe9a69aa69b.bindTooltip(
                 `<div>
                      Norway - Preikestolen Hike
                  </div>`,
@@ -316,17 +365,17 @@
             );
         
     
-                marker_00cfb1c02efc8279cdc646fd097a08ac.setIcon(icon_ea929751bd4b85d5cb7652815ae1c756);
+                marker_506e6f3eb6cc2d2a97e34fe9a69aa69b.setIcon(icon_b2e836f7156182c06a32b7166082c250);
             
     
-            var marker_d28030820baacb1ee273f57e442ab9c7 = L.marker(
+            var marker_37de51e65a03135426d6b2097b6b77b4 = L.marker(
                 [46.39411534517045, 12.514578429924242],
                 {
 }
-            ).addTo(marker_cluster_439d1de5c11d2a7b707d99dd4919f984);
+            ).addTo(marker_cluster_84b53bf84f7c3db41f820cb406a8767c);
         
     
-            var icon_30b01e2ef1120a51c298aa31dfad2336 = L.AwesomeMarkers.icon(
+            var icon_9128c3eabf677209adb03b95ae56d535 = L.AwesomeMarkers.icon(
                 {
   "markerColor": "red",
   "iconColor": "white",
@@ -337,7 +386,7 @@
             );
         
     
-            marker_d28030820baacb1ee273f57e442ab9c7.bindTooltip(
+            marker_37de51e65a03135426d6b2097b6b77b4.bindTooltip(
                 `<div>
                      Anello delle Dolomiti Friulane
                  </div>`,
@@ -347,17 +396,17 @@
             );
         
     
-                marker_d28030820baacb1ee273f57e442ab9c7.setIcon(icon_30b01e2ef1120a51c298aa31dfad2336);
+                marker_37de51e65a03135426d6b2097b6b77b4.setIcon(icon_9128c3eabf677209adb03b95ae56d535);
             
     
-            var marker_933c3117a294c7662731a9aff72ce200 = L.marker(
+            var marker_d51f721e5c7bac4e4c96009c3f06e9db = L.marker(
                 [46.61791067187501, 12.299719281250002],
                 {
 }
-            ).addTo(marker_cluster_439d1de5c11d2a7b707d99dd4919f984);
+            ).addTo(marker_cluster_84b53bf84f7c3db41f820cb406a8767c);
         
     
-            var icon_4e8a9232a5c95d7afd2b228cd3e14681 = L.AwesomeMarkers.icon(
+            var icon_a3e73e8c3fb4a2c6385c4f6aed664b64 = L.AwesomeMarkers.icon(
                 {
   "markerColor": "green",
   "iconColor": "white",
@@ -368,7 +417,7 @@
             );
         
     
-            marker_933c3117a294c7662731a9aff72ce200.bindTooltip(
+            marker_d51f721e5c7bac4e4c96009c3f06e9db.bindTooltip(
                 `<div>
                      Italy - Tre Cime di Lavaredo & Cadini di Misurina
                  </div>`,
@@ -378,17 +427,17 @@
             );
         
     
-                marker_933c3117a294c7662731a9aff72ce200.setIcon(icon_4e8a9232a5c95d7afd2b228cd3e14681);
+                marker_d51f721e5c7bac4e4c96009c3f06e9db.setIcon(icon_a3e73e8c3fb4a2c6385c4f6aed664b64);
             
     
-            var marker_aec5f795d2a95c74061e73e9f96ca879 = L.marker(
+            var marker_8111b9dcdf33f7590dcb4b1083be5a83 = L.marker(
                 [46.118115177083325, 12.505885218750002],
                 {
 }
-            ).addTo(marker_cluster_439d1de5c11d2a7b707d99dd4919f984);
+            ).addTo(marker_cluster_84b53bf84f7c3db41f820cb406a8767c);
         
     
-            var icon_16b34c8155200b7850d8a89bf7c1ee74 = L.AwesomeMarkers.icon(
+            var icon_aedee44940422b97ace14778e978876e = L.AwesomeMarkers.icon(
                 {
   "markerColor": "orange",
   "iconColor": "white",
@@ -399,7 +448,7 @@
             );
         
     
-            marker_aec5f795d2a95c74061e73e9f96ca879.bindTooltip(
+            marker_8111b9dcdf33f7590dcb4b1083be5a83.bindTooltip(
                 `<div>
                      Piancavallo - Hike to Forcella Palantina
                  </div>`,
@@ -409,17 +458,17 @@
             );
         
     
-                marker_aec5f795d2a95c74061e73e9f96ca879.setIcon(icon_16b34c8155200b7850d8a89bf7c1ee74);
+                marker_8111b9dcdf33f7590dcb4b1083be5a83.setIcon(icon_aedee44940422b97ace14778e978876e);
             
     
-            var marker_7fa258a227eff60afb0deb434de4dcf7 = L.marker(
+            var marker_f278195dee82a12d067bab7714abb07b = L.marker(
                 [46.44872000263799, 12.117831609375003],
                 {
 }
-            ).addTo(marker_cluster_439d1de5c11d2a7b707d99dd4919f984);
+            ).addTo(marker_cluster_84b53bf84f7c3db41f820cb406a8767c);
         
     
-            var icon_1e96c3d734a76f087014565d15ca6486 = L.AwesomeMarkers.icon(
+            var icon_f7a83d199d8dd5f634c27195b33d0321 = L.AwesomeMarkers.icon(
                 {
   "markerColor": "orange",
   "iconColor": "white",
@@ -430,7 +479,7 @@
             );
         
     
-            marker_7fa258a227eff60afb0deb434de4dcf7.bindTooltip(
+            marker_f278195dee82a12d067bab7714abb07b.bindTooltip(
                 `<div>
                      Val di Zoldo - Hike above Città di Fiume
                  </div>`,
@@ -440,17 +489,17 @@
             );
         
     
-                marker_7fa258a227eff60afb0deb434de4dcf7.setIcon(icon_1e96c3d734a76f087014565d15ca6486);
+                marker_f278195dee82a12d067bab7714abb07b.setIcon(icon_f7a83d199d8dd5f634c27195b33d0321);
             
     
-            var marker_3a834ea2240a02720232994707db25e0 = L.marker(
+            var marker_2d1871a74edc1c56c1d89c3da9be6882 = L.marker(
                 [44.09993610085229, 9.75115711363636],
                 {
 }
-            ).addTo(marker_cluster_439d1de5c11d2a7b707d99dd4919f984);
+            ).addTo(marker_cluster_84b53bf84f7c3db41f820cb406a8767c);
         
     
-            var icon_b02cde53f1d82019be9b57a3c4513686 = L.AwesomeMarkers.icon(
+            var icon_53e50188091df30b6d746c1a3fc88371 = L.AwesomeMarkers.icon(
                 {
   "markerColor": "green",
   "iconColor": "white",
@@ -461,7 +510,7 @@
             );
         
     
-            marker_3a834ea2240a02720232994707db25e0.bindTooltip(
+            marker_2d1871a74edc1c56c1d89c3da9be6882.bindTooltip(
                 `<div>
                      Italy - Cinque Terre Hiking
                  </div>`,
@@ -471,17 +520,17 @@
             );
         
     
-                marker_3a834ea2240a02720232994707db25e0.setIcon(icon_b02cde53f1d82019be9b57a3c4513686);
+                marker_2d1871a74edc1c56c1d89c3da9be6882.setIcon(icon_53e50188091df30b6d746c1a3fc88371);
             
     
-            var marker_4085ad00aaa9eeb266bfadeca1d3ac75 = L.marker(
+            var marker_d922dc2c2fc33e55d81a405f841c9f3d = L.marker(
                 [46.47169784375001, 12.073366250000003],
                 {
 }
-            ).addTo(marker_cluster_439d1de5c11d2a7b707d99dd4919f984);
+            ).addTo(marker_cluster_84b53bf84f7c3db41f820cb406a8767c);
         
     
-            var icon_6ce5f6ed9d44c6fd085772e88f487fce = L.AwesomeMarkers.icon(
+            var icon_86cab9e5e88755d3673b69d2a941254f = L.AwesomeMarkers.icon(
                 {
   "markerColor": "green",
   "iconColor": "white",
@@ -492,7 +541,7 @@
             );
         
     
-            marker_4085ad00aaa9eeb266bfadeca1d3ac75.bindTooltip(
+            marker_d922dc2c2fc33e55d81a405f841c9f3d.bindTooltip(
                 `<div>
                      Italy - Mondeval Sunset Hike
                  </div>`,
@@ -502,17 +551,17 @@
             );
         
     
-                marker_4085ad00aaa9eeb266bfadeca1d3ac75.setIcon(icon_6ce5f6ed9d44c6fd085772e88f487fce);
+                marker_d922dc2c2fc33e55d81a405f841c9f3d.setIcon(icon_86cab9e5e88755d3673b69d2a941254f);
             
     
-            var marker_c614faa5d5eb9eb572af54c2b14eeb2c = L.marker(
+            var marker_a6d6bc9ff948895f9583e5788070f65f = L.marker(
                 [46.39694389062501, 12.490009546875001],
                 {
 }
-            ).addTo(marker_cluster_439d1de5c11d2a7b707d99dd4919f984);
+            ).addTo(marker_cluster_84b53bf84f7c3db41f820cb406a8767c);
         
     
-            var icon_3bca1e97608d495a2a80fcf6e0fdd983 = L.AwesomeMarkers.icon(
+            var icon_4f5ebc558806043a6e19eca8e8345b28 = L.AwesomeMarkers.icon(
                 {
   "markerColor": "red",
   "iconColor": "white",
@@ -523,7 +572,7 @@
             );
         
     
-            marker_c614faa5d5eb9eb572af54c2b14eeb2c.bindTooltip(
+            marker_a6d6bc9ff948895f9583e5788070f65f.bindTooltip(
                 `<div>
                      Anello delle Dolomiti Friulane - 2 Day Alternative
                  </div>`,
@@ -533,17 +582,17 @@
             );
         
     
-                marker_c614faa5d5eb9eb572af54c2b14eeb2c.setIcon(icon_3bca1e97608d495a2a80fcf6e0fdd983);
+                marker_a6d6bc9ff948895f9583e5788070f65f.setIcon(icon_4f5ebc558806043a6e19eca8e8345b28);
             
     
-            var marker_4eb0d8a6668b7545dee3bf5859724b84 = L.marker(
+            var marker_b485bfe6c50d3f13c2a53aaf45015855 = L.marker(
                 [46.610876359375006, 8.052279031250002],
                 {
 }
-            ).addTo(marker_cluster_439d1de5c11d2a7b707d99dd4919f984);
+            ).addTo(marker_cluster_84b53bf84f7c3db41f820cb406a8767c);
         
     
-            var icon_21056e1e325a83389fcd2fa633ed0c19 = L.AwesomeMarkers.icon(
+            var icon_232d06e89162b7d50c895ef61872419a = L.AwesomeMarkers.icon(
                 {
   "markerColor": "orange",
   "iconColor": "white",
@@ -554,7 +603,7 @@
             );
         
     
-            marker_4eb0d8a6668b7545dee3bf5859724b84.bindTooltip(
+            marker_b485bfe6c50d3f13c2a53aaf45015855.bindTooltip(
                 `<div>
                      Switzerland - Baregg Hut
                  </div>`,
@@ -564,17 +613,17 @@
             );
         
     
-                marker_4eb0d8a6668b7545dee3bf5859724b84.setIcon(icon_21056e1e325a83389fcd2fa633ed0c19);
+                marker_b485bfe6c50d3f13c2a53aaf45015855.setIcon(icon_232d06e89162b7d50c895ef61872419a);
             
     
-            var marker_53edd539e32a7c38d721ad9be33192f1 = L.marker(
+            var marker_7bbff4a235188b455ad5720fc332baa0 = L.marker(
                 [46.616159796875, 8.328749421875001],
                 {
 }
-            ).addTo(marker_cluster_439d1de5c11d2a7b707d99dd4919f984);
+            ).addTo(marker_cluster_84b53bf84f7c3db41f820cb406a8767c);
         
     
-            var icon_cdb8ab71e6713dd64a16b22fa2fcc4a3 = L.AwesomeMarkers.icon(
+            var icon_e0066fe897398e00fadf2c157004daad = L.AwesomeMarkers.icon(
                 {
   "markerColor": "green",
   "iconColor": "white",
@@ -585,7 +634,7 @@
             );
         
     
-            marker_53edd539e32a7c38d721ad9be33192f1.bindTooltip(
+            marker_7bbff4a235188b455ad5720fc332baa0.bindTooltip(
                 `<div>
                      Switzerland - Gelmersee Loop
                  </div>`,
@@ -595,17 +644,17 @@
             );
         
     
-                marker_53edd539e32a7c38d721ad9be33192f1.setIcon(icon_cdb8ab71e6713dd64a16b22fa2fcc4a3);
+                marker_7bbff4a235188b455ad5720fc332baa0.setIcon(icon_e0066fe897398e00fadf2c157004daad);
             
     
-            var marker_c5e8da136d426d211a9e605782529755 = L.marker(
+            var marker_762981b6264b04a0a6449ecca6bd6335 = L.marker(
                 [46.55568453125001, 7.8820137500000005],
                 {
 }
-            ).addTo(marker_cluster_439d1de5c11d2a7b707d99dd4919f984);
+            ).addTo(marker_cluster_84b53bf84f7c3db41f820cb406a8767c);
         
     
-            var icon_38fac08aeb27107be632d17e359b2b1c = L.AwesomeMarkers.icon(
+            var icon_79aab197dca7c5638988902488ee696a = L.AwesomeMarkers.icon(
                 {
   "markerColor": "green",
   "iconColor": "white",
@@ -616,7 +665,7 @@
             );
         
     
-            marker_c5e8da136d426d211a9e605782529755.bindTooltip(
+            marker_762981b6264b04a0a6449ecca6bd6335.bindTooltip(
                 `<div>
                      Switzerland - North Face Trail
                  </div>`,
@@ -626,17 +675,17 @@
             );
         
     
-                marker_c5e8da136d426d211a9e605782529755.setIcon(icon_38fac08aeb27107be632d17e359b2b1c);
+                marker_762981b6264b04a0a6449ecca6bd6335.setIcon(icon_79aab197dca7c5638988902488ee696a);
             
     
-            var marker_a879a2f2c8e107862454f845cd6c7036 = L.marker(
+            var marker_fd3191c4407b2796e45c22efbaec6d4b = L.marker(
                 [46.334932828125005, 13.816290838541669],
                 {
 }
-            ).addTo(marker_cluster_439d1de5c11d2a7b707d99dd4919f984);
+            ).addTo(marker_cluster_84b53bf84f7c3db41f820cb406a8767c);
         
     
-            var icon_fab90a6e1f50520268efcf340c673688 = L.AwesomeMarkers.icon(
+            var icon_17cb4f9d93f592d99608f12f9f82bbcf = L.AwesomeMarkers.icon(
                 {
   "markerColor": "orange",
   "iconColor": "white",
@@ -647,7 +696,7 @@
             );
         
     
-            marker_a879a2f2c8e107862454f845cd6c7036.bindTooltip(
+            marker_fd3191c4407b2796e45c22efbaec6d4b.bindTooltip(
                 `<div>
                      Slovenia - Triglav Lakes Loop
                  </div>`,
@@ -657,17 +706,17 @@
             );
         
     
-                marker_a879a2f2c8e107862454f845cd6c7036.setIcon(icon_fab90a6e1f50520268efcf340c673688);
+                marker_fd3191c4407b2796e45c22efbaec6d4b.setIcon(icon_17cb4f9d93f592d99608f12f9f82bbcf);
             
     
-            var marker_1a502511df467183be5272876bd5978d = L.marker(
+            var marker_c247c8cb255ee385b6227e0de92fce76 = L.marker(
                 [46.49962443750002, 12.039523109375],
                 {
 }
-            ).addTo(marker_cluster_439d1de5c11d2a7b707d99dd4919f984);
+            ).addTo(marker_cluster_84b53bf84f7c3db41f820cb406a8767c);
         
     
-            var icon_8e8a04c8e2f411ed67fc7095369fca77 = L.AwesomeMarkers.icon(
+            var icon_d12613a0e4fd073b8f5503b1ee18c2f2 = L.AwesomeMarkers.icon(
                 {
   "markerColor": "orange",
   "iconColor": "white",
@@ -678,7 +727,7 @@
             );
         
     
-            marker_1a502511df467183be5272876bd5978d.bindTooltip(
+            marker_c247c8cb255ee385b6227e0de92fce76.bindTooltip(
                 `<div>
                      Italy - Cinque Torri Overnight
                  </div>`,
@@ -688,17 +737,17 @@
             );
         
     
-                marker_1a502511df467183be5272876bd5978d.setIcon(icon_8e8a04c8e2f411ed67fc7095369fca77);
+                marker_c247c8cb255ee385b6227e0de92fce76.setIcon(icon_d12613a0e4fd073b8f5503b1ee18c2f2);
             
     
-            var marker_7fe28f11d8d705508f0b025ba7b4eda1 = L.marker(
+            var marker_856d913ff6666d926734c7a4ee6a6338 = L.marker(
                 [46.403189140625, 12.080387890625003],
                 {
 }
-            ).addTo(marker_cluster_439d1de5c11d2a7b707d99dd4919f984);
+            ).addTo(marker_cluster_84b53bf84f7c3db41f820cb406a8767c);
         
     
-            var icon_db8244fcf1f0985ad1e598449bd2fb71 = L.AwesomeMarkers.icon(
+            var icon_07fd566ec099561bde0038315314797b = L.AwesomeMarkers.icon(
                 {
   "markerColor": "orange",
   "iconColor": "white",
@@ -709,7 +758,7 @@
             );
         
     
-            marker_7fe28f11d8d705508f0b025ba7b4eda1.bindTooltip(
+            marker_856d913ff6666d926734c7a4ee6a6338.bindTooltip(
                 `<div>
                      Italy - Lago Di Coldai
                  </div>`,
@@ -719,17 +768,17 @@
             );
         
     
-                marker_7fe28f11d8d705508f0b025ba7b4eda1.setIcon(icon_db8244fcf1f0985ad1e598449bd2fb71);
+                marker_856d913ff6666d926734c7a4ee6a6338.setIcon(icon_07fd566ec099561bde0038315314797b);
             
     
-            var marker_d952356daf46ae7fbd22f17fd6321252 = L.marker(
+            var marker_de5058416c032cf35b31e45024e3d6db = L.marker(
                 [40.31364957812501, 9.717578234375],
                 {
 }
-            ).addTo(marker_cluster_439d1de5c11d2a7b707d99dd4919f984);
+            ).addTo(marker_cluster_84b53bf84f7c3db41f820cb406a8767c);
         
     
-            var icon_56ed5d1a48871f880ce15632b45b1af6 = L.AwesomeMarkers.icon(
+            var icon_6b59d14f8c4693e5809b6271a0634c25 = L.AwesomeMarkers.icon(
                 {
   "markerColor": "orange",
   "iconColor": "white",
@@ -740,7 +789,7 @@
             );
         
     
-            marker_d952356daf46ae7fbd22f17fd6321252.bindTooltip(
+            marker_de5058416c032cf35b31e45024e3d6db.bindTooltip(
                 `<div>
                      Italy - Via Ogliastra
                  </div>`,
@@ -750,17 +799,17 @@
             );
         
     
-                marker_d952356daf46ae7fbd22f17fd6321252.setIcon(icon_56ed5d1a48871f880ce15632b45b1af6);
+                marker_de5058416c032cf35b31e45024e3d6db.setIcon(icon_6b59d14f8c4693e5809b6271a0634c25);
             
     
-            var marker_421fdbbd617c3bccf80dce39cff5d4bf = L.marker(
+            var marker_37eb3550d1395ad988bea7fab6e3ddb7 = L.marker(
                 [46.121077421875015, 12.505199046875003],
                 {
 }
-            ).addTo(marker_cluster_439d1de5c11d2a7b707d99dd4919f984);
+            ).addTo(marker_cluster_84b53bf84f7c3db41f820cb406a8767c);
         
     
-            var icon_a360b7243eaaebe021a0ae5f871e3986 = L.AwesomeMarkers.icon(
+            var icon_99c7a61434096641f20c157c7f241088 = L.AwesomeMarkers.icon(
                 {
   "markerColor": "orange",
   "iconColor": "white",
@@ -771,7 +820,7 @@
             );
         
     
-            marker_421fdbbd617c3bccf80dce39cff5d4bf.bindTooltip(
+            marker_37eb3550d1395ad988bea7fab6e3ddb7.bindTooltip(
                 `<div>
                      Italy - Cima Manera Sunrise
                  </div>`,
@@ -781,17 +830,17 @@
             );
         
     
-                marker_421fdbbd617c3bccf80dce39cff5d4bf.setIcon(icon_a360b7243eaaebe021a0ae5f871e3986);
+                marker_37eb3550d1395ad988bea7fab6e3ddb7.setIcon(icon_99c7a61434096641f20c157c7f241088);
             
     
-            var marker_ef53a9154f4836eed2af6c0599f108c7 = L.marker(
+            var marker_20988f76b4a01a30bea45e4ffbf8b6d7 = L.marker(
                 [46.48792542187501, 12.093129875000002],
                 {
 }
-            ).addTo(marker_cluster_439d1de5c11d2a7b707d99dd4919f984);
+            ).addTo(marker_cluster_84b53bf84f7c3db41f820cb406a8767c);
         
     
-            var icon_2d6e887e935d132968537137eb7722eb = L.AwesomeMarkers.icon(
+            var icon_36c51b5b5a15b6f8c9570ce55d61b232 = L.AwesomeMarkers.icon(
                 {
   "markerColor": "orange",
   "iconColor": "white",
@@ -802,7 +851,7 @@
             );
         
     
-            marker_ef53a9154f4836eed2af6c0599f108c7.bindTooltip(
+            marker_20988f76b4a01a30bea45e4ffbf8b6d7.bindTooltip(
                 `<div>
                      Italy - Croda Da Lago
                  </div>`,
@@ -812,17 +861,17 @@
             );
         
     
-                marker_ef53a9154f4836eed2af6c0599f108c7.setIcon(icon_2d6e887e935d132968537137eb7722eb);
+                marker_20988f76b4a01a30bea45e4ffbf8b6d7.setIcon(icon_36c51b5b5a15b6f8c9570ce55d61b232);
             
     
-            var marker_3a3005e4cdd1907efe65de6bb02c9d5e = L.marker(
+            var marker_0f5ef0fdbfd6d08509128c34a431405f = L.marker(
                 [46.34433600000001, 12.908769314393933],
                 {
 }
-            ).addTo(marker_cluster_439d1de5c11d2a7b707d99dd4919f984);
+            ).addTo(marker_cluster_84b53bf84f7c3db41f820cb406a8767c);
         
     
-            var icon_cdd6c1fae8374c5a3c0d16d9b5eeb584 = L.AwesomeMarkers.icon(
+            var icon_00666e710376cc4aa9534df2ef79ff9a = L.AwesomeMarkers.icon(
                 {
   "markerColor": "green",
   "iconColor": "white",
@@ -833,7 +882,7 @@
             );
         
     
-            marker_3a3005e4cdd1907efe65de6bb02c9d5e.bindTooltip(
+            marker_0f5ef0fdbfd6d08509128c34a431405f.bindTooltip(
                 `<div>
                      Italy - Cascate dell'Arzino
                  </div>`,
@@ -843,17 +892,17 @@
             );
         
     
-                marker_3a3005e4cdd1907efe65de6bb02c9d5e.setIcon(icon_cdd6c1fae8374c5a3c0d16d9b5eeb584);
+                marker_0f5ef0fdbfd6d08509128c34a431405f.setIcon(icon_00666e710376cc4aa9534df2ef79ff9a);
             
     
-            var marker_54b4767910ec6625b61bdb7753e3e407 = L.marker(
+            var marker_bea3eaf881cf4528a5f6afdffdc58d02 = L.marker(
                 [46.18811703125001, 12.563533359375002],
                 {
 }
-            ).addTo(marker_cluster_439d1de5c11d2a7b707d99dd4919f984);
+            ).addTo(marker_cluster_84b53bf84f7c3db41f820cb406a8767c);
         
     
-            var icon_66d5b5ce78187560945e866b580808cc = L.AwesomeMarkers.icon(
+            var icon_1a8cd9ec9b239932bdba97fa42bdf1f8 = L.AwesomeMarkers.icon(
                 {
   "markerColor": "green",
   "iconColor": "white",
@@ -864,7 +913,7 @@
             );
         
     
-            marker_54b4767910ec6625b61bdb7753e3e407.bindTooltip(
+            marker_bea3eaf881cf4528a5f6afdffdc58d02.bindTooltip(
                 `<div>
                      Italy - Lago di Barcis
                  </div>`,
@@ -874,17 +923,17 @@
             );
         
     
-                marker_54b4767910ec6625b61bdb7753e3e407.setIcon(icon_66d5b5ce78187560945e866b580808cc);
+                marker_bea3eaf881cf4528a5f6afdffdc58d02.setIcon(icon_1a8cd9ec9b239932bdba97fa42bdf1f8);
             
     
-            var marker_532aeac9ae22f313971e19f5f4970dba = L.marker(
+            var marker_bacd848146428b75740d55480e7eb9e8 = L.marker(
                 [46.36244601562501, 13.339223953125002],
                 {
 }
-            ).addTo(marker_cluster_439d1de5c11d2a7b707d99dd4919f984);
+            ).addTo(marker_cluster_84b53bf84f7c3db41f820cb406a8767c);
         
     
-            var icon_c3b063b1a33bc3d7dbd9b3df64fcd530 = L.AwesomeMarkers.icon(
+            var icon_29e1560e44fc6d55de576722881e8895 = L.AwesomeMarkers.icon(
                 {
   "markerColor": "green",
   "iconColor": "white",
@@ -895,7 +944,7 @@
             );
         
     
-            marker_532aeac9ae22f313971e19f5f4970dba.bindTooltip(
+            marker_bacd848146428b75740d55480e7eb9e8.bindTooltip(
                 `<div>
                      Italy - Ta Lipa Pot
                  </div>`,
@@ -905,17 +954,17 @@
             );
         
     
-                marker_532aeac9ae22f313971e19f5f4970dba.setIcon(icon_c3b063b1a33bc3d7dbd9b3df64fcd530);
+                marker_bacd848146428b75740d55480e7eb9e8.setIcon(icon_29e1560e44fc6d55de576722881e8895);
             
     
-            var marker_981f772bdc27496d5349d1fb72062b4c = L.marker(
+            var marker_c1b6025969ec33720934d8306805f89f = L.marker(
                 [46.029826796875014, 12.511957927556814],
                 {
 }
-            ).addTo(marker_cluster_439d1de5c11d2a7b707d99dd4919f984);
+            ).addTo(marker_cluster_84b53bf84f7c3db41f820cb406a8767c);
         
     
-            var icon_c9eac0b899b709c0258b8a04e87def26 = L.AwesomeMarkers.icon(
+            var icon_2c1c263a2867c92b5a31df48c50ce9cb = L.AwesomeMarkers.icon(
                 {
   "markerColor": "green",
   "iconColor": "white",
@@ -926,7 +975,7 @@
             );
         
     
-            marker_981f772bdc27496d5349d1fb72062b4c.bindTooltip(
+            marker_c1b6025969ec33720934d8306805f89f.bindTooltip(
                 `<div>
                      Italy - Colli di Budoia e Polcenigo
                  </div>`,
@@ -936,17 +985,17 @@
             );
         
     
-                marker_981f772bdc27496d5349d1fb72062b4c.setIcon(icon_c9eac0b899b709c0258b8a04e87def26);
+                marker_c1b6025969ec33720934d8306805f89f.setIcon(icon_2c1c263a2867c92b5a31df48c50ce9cb);
             
     
-            var marker_8524c87f506368915809bb8b5710b4fb = L.marker(
+            var marker_cd4445cba15599b95b1b62de59bd5630 = L.marker(
                 [46.379034812026525, 12.250422812500002],
                 {
 }
-            ).addTo(marker_cluster_439d1de5c11d2a7b707d99dd4919f984);
+            ).addTo(marker_cluster_84b53bf84f7c3db41f820cb406a8767c);
         
     
-            var icon_04d8f3e8d40a17cd6876575f18897c6c = L.AwesomeMarkers.icon(
+            var icon_9abc3cc75f44f2fd7aec55351e9031c3 = L.AwesomeMarkers.icon(
                 {
   "markerColor": "orange",
   "iconColor": "white",
@@ -957,7 +1006,7 @@
             );
         
     
-            marker_8524c87f506368915809bb8b5710b4fb.bindTooltip(
+            marker_cd4445cba15599b95b1b62de59bd5630.bindTooltip(
                 `<div>
                      Italy - Monte Rite
                  </div>`,
@@ -967,17 +1016,17 @@
             );
         
     
-                marker_8524c87f506368915809bb8b5710b4fb.setIcon(icon_04d8f3e8d40a17cd6876575f18897c6c);
+                marker_cd4445cba15599b95b1b62de59bd5630.setIcon(icon_9abc3cc75f44f2fd7aec55351e9031c3);
             
     
-            var marker_011a159f0a895a09c9150352ee2af12f = L.marker(
+            var marker_5a086bed035ab380528c55a1d6262f57 = L.marker(
                 [46.56461855675053, 12.277441445075755],
                 {
 }
-            ).addTo(marker_cluster_439d1de5c11d2a7b707d99dd4919f984);
+            ).addTo(marker_cluster_84b53bf84f7c3db41f820cb406a8767c);
         
     
-            var icon_430758e782ae0ad546ee20ec16dd0750 = L.AwesomeMarkers.icon(
+            var icon_e6417b543134cf710304485a2f711ac5 = L.AwesomeMarkers.icon(
                 {
   "markerColor": "green",
   "iconColor": "white",
@@ -988,7 +1037,7 @@
             );
         
     
-            marker_011a159f0a895a09c9150352ee2af12f.bindTooltip(
+            marker_5a086bed035ab380528c55a1d6262f57.bindTooltip(
                 `<div>
                      Italy - Rifugio Citta Di Carpi
                  </div>`,
@@ -998,17 +1047,17 @@
             );
         
     
-                marker_011a159f0a895a09c9150352ee2af12f.setIcon(icon_430758e782ae0ad546ee20ec16dd0750);
+                marker_5a086bed035ab380528c55a1d6262f57.setIcon(icon_e6417b543134cf710304485a2f711ac5);
             
     
-            var marker_c46ad45ea928c76f05f03d4100a4a1fd = L.marker(
+            var marker_6c14c503c9bd5850ebba09b3b0bb1244 = L.marker(
                 [42.37972179687501, 19.768667265625],
                 {
 }
-            ).addTo(marker_cluster_439d1de5c11d2a7b707d99dd4919f984);
+            ).addTo(marker_cluster_84b53bf84f7c3db41f820cb406a8767c);
         
     
-            var icon_12a20bf51cfd5715feb77cacf78be97d = L.AwesomeMarkers.icon(
+            var icon_41e5a6d3d431d9be1d2d0fe64a605b9f = L.AwesomeMarkers.icon(
                 {
   "markerColor": "orange",
   "iconColor": "white",
@@ -1019,7 +1068,7 @@
             );
         
     
-            marker_c46ad45ea928c76f05f03d4100a4a1fd.bindTooltip(
+            marker_6c14c503c9bd5850ebba09b3b0bb1244.bindTooltip(
                 `<div>
                      Albania - Theth Blue Eye
                  </div>`,
@@ -1029,17 +1078,17 @@
             );
         
     
-                marker_c46ad45ea928c76f05f03d4100a4a1fd.setIcon(icon_12a20bf51cfd5715feb77cacf78be97d);
+                marker_6c14c503c9bd5850ebba09b3b0bb1244.setIcon(icon_41e5a6d3d431d9be1d2d0fe64a605b9f);
             
     
-            var marker_9ae47ea31ebe43ab7ddf2462f9e3cbd7 = L.marker(
+            var marker_5550b0cc6458ab52c72f46fd01e7fbb6 = L.marker(
                 [42.41916756250001, 19.821130703125004],
                 {
 }
-            ).addTo(marker_cluster_439d1de5c11d2a7b707d99dd4919f984);
+            ).addTo(marker_cluster_84b53bf84f7c3db41f820cb406a8767c);
         
     
-            var icon_2923a076f1c141846a4defdda9f5f7ed = L.AwesomeMarkers.icon(
+            var icon_ae311febb6f61388c86577684f3002ef = L.AwesomeMarkers.icon(
                 {
   "markerColor": "red",
   "iconColor": "white",
@@ -1050,7 +1099,7 @@
             );
         
     
-            marker_9ae47ea31ebe43ab7ddf2462f9e3cbd7.bindTooltip(
+            marker_5550b0cc6458ab52c72f46fd01e7fbb6.bindTooltip(
                 `<div>
                      Albania - Theth to Valbona Traverse
                  </div>`,
@@ -1060,17 +1109,48 @@
             );
         
     
-                marker_9ae47ea31ebe43ab7ddf2462f9e3cbd7.setIcon(icon_2923a076f1c141846a4defdda9f5f7ed);
+                marker_5550b0cc6458ab52c72f46fd01e7fbb6.setIcon(icon_ae311febb6f61388c86577684f3002ef);
             
     
-            var marker_6c19ca79e9272c38e9c80982ce43126f = L.marker(
+            var marker_5824d42f746cbd201253fbb62fbcec98 = L.marker(
+                [46.29753285937501, 13.138149046875004],
+                {
+}
+            ).addTo(marker_cluster_84b53bf84f7c3db41f820cb406a8767c);
+        
+    
+            var icon_8a1770a6e1334d2bb0ab72b83db03cc7 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "flag",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_5824d42f746cbd201253fbb62fbcec98.bindTooltip(
+                `<div>
+                     Italy - Cumieli Viewpoint
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_5824d42f746cbd201253fbb62fbcec98.setIcon(icon_8a1770a6e1334d2bb0ab72b83db03cc7);
+            
+    
+            var marker_3762d39f1255d0d952fdbf9ce39322dc = L.marker(
                 [46.41734932812501, 12.472291704410171],
                 {
 }
-            ).addTo(marker_cluster_439d1de5c11d2a7b707d99dd4919f984);
+            ).addTo(marker_cluster_84b53bf84f7c3db41f820cb406a8767c);
         
     
-            var icon_e71c17701b503bce77e0bbcc3ec42563 = L.AwesomeMarkers.icon(
+            var icon_e2e7f4725df67f6d66470e2143acea14 = L.AwesomeMarkers.icon(
                 {
   "markerColor": "orange",
   "iconColor": "white",
@@ -1081,7 +1161,7 @@
             );
         
     
-            marker_6c19ca79e9272c38e9c80982ce43126f.bindTooltip(
+            marker_3762d39f1255d0d952fdbf9ce39322dc.bindTooltip(
                 `<div>
                      Italy - Forcella Scodavacca
                  </div>`,
@@ -1091,17 +1171,110 @@
             );
         
     
-                marker_6c19ca79e9272c38e9c80982ce43126f.setIcon(icon_e71c17701b503bce77e0bbcc3ec42563);
+                marker_3762d39f1255d0d952fdbf9ce39322dc.setIcon(icon_e2e7f4725df67f6d66470e2143acea14);
             
     
-            var marker_e58ff6ed7e810fde7c320a35fecc2d33 = L.marker(
+            var marker_c02e156793525208cc3412363b0362e3 = L.marker(
+                [46.43831187310607, 12.12068658996212],
+                {
+}
+            ).addTo(marker_cluster_84b53bf84f7c3db41f820cb406a8767c);
+        
+    
+            var icon_c30fd71faef7415c61cc09db395e3044 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "orange",
+  "iconColor": "white",
+  "icon": "flag",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_c02e156793525208cc3412363b0362e3.bindTooltip(
+                `<div>
+                     Italy - Col Di Roan
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_c02e156793525208cc3412363b0362e3.setIcon(icon_c30fd71faef7415c61cc09db395e3044);
+            
+    
+            var marker_5fdbfd671f0b86a4208c15e9198c21bf = L.marker(
+                [46.019082109375006, 11.277122671875002],
+                {
+}
+            ).addTo(marker_cluster_84b53bf84f7c3db41f820cb406a8767c);
+        
+    
+            var icon_d0c5910135fdf348a917a33f74da7dcb = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "flag",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_5fdbfd671f0b86a4208c15e9198c21bf.bindTooltip(
+                `<div>
+                     Italy - Lago Di Levico
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_5fdbfd671f0b86a4208c15e9198c21bf.setIcon(icon_d0c5910135fdf348a917a33f74da7dcb);
+            
+    
+            var marker_34e09acefc9d94f07a7c4862acb5b414 = L.marker(
+                [46.24843964062501, 11.963559781250002],
+                {
+}
+            ).addTo(marker_cluster_84b53bf84f7c3db41f820cb406a8767c);
+        
+    
+            var icon_5a8740f96e3b1381ef432db77e6aecd3 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "orange",
+  "iconColor": "white",
+  "icon": "flag",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_34e09acefc9d94f07a7c4862acb5b414.bindTooltip(
+                `<div>
+                     Italy - Rifugio Scarpa Overnight
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_34e09acefc9d94f07a7c4862acb5b414.setIcon(icon_5a8740f96e3b1381ef432db77e6aecd3);
+            
+    
+            var marker_0ff988a0b48a307a55c5b8496dc40a08 = L.marker(
                 [51.3532996257709, -116.32851257498262],
                 {
 }
-            ).addTo(marker_cluster_439d1de5c11d2a7b707d99dd4919f984);
+            ).addTo(marker_cluster_84b53bf84f7c3db41f820cb406a8767c);
         
     
-            var icon_046cf6db053a773e32c3d2dbaf14d9d7 = L.AwesomeMarkers.icon(
+            var icon_5b15a4b5d0273be754b8439ae1a728d4 = L.AwesomeMarkers.icon(
                 {
   "markerColor": "red",
   "iconColor": "white",
@@ -1112,7 +1285,7 @@
             );
         
     
-            marker_e58ff6ed7e810fde7c320a35fecc2d33.bindTooltip(
+            marker_0ff988a0b48a307a55c5b8496dc40a08.bindTooltip(
                 `<div>
                      Yoho National Park - Lake O'Hara Loop
                  </div>`,
@@ -1122,17 +1295,17 @@
             );
         
     
-                marker_e58ff6ed7e810fde7c320a35fecc2d33.setIcon(icon_046cf6db053a773e32c3d2dbaf14d9d7);
+                marker_0ff988a0b48a307a55c5b8496dc40a08.setIcon(icon_5b15a4b5d0273be754b8439ae1a728d4);
             
     
-            var marker_2d5a564c5ade45bc7f5589f5c746303c = L.marker(
+            var marker_d33d316769af1583c6d379087f0bc4bf = L.marker(
                 [46.07948651731952, -81.37737062032103],
                 {
 }
-            ).addTo(marker_cluster_439d1de5c11d2a7b707d99dd4919f984);
+            ).addTo(marker_cluster_84b53bf84f7c3db41f820cb406a8767c);
         
     
-            var icon_d91f9412917553320a7a0f6c623dbac5 = L.AwesomeMarkers.icon(
+            var icon_9e97da88e9c8074a0b5c4db40cdf0cb2 = L.AwesomeMarkers.icon(
                 {
   "markerColor": "red",
   "iconColor": "white",
@@ -1143,7 +1316,7 @@
             );
         
     
-            marker_2d5a564c5ade45bc7f5589f5c746303c.bindTooltip(
+            marker_d33d316769af1583c6d379087f0bc4bf.bindTooltip(
                 `<div>
                      Killarney Provincial Park - La Cloche Silhouette Trail
                  </div>`,
@@ -1153,21 +1326,33 @@
             );
         
     
-                marker_2d5a564c5ade45bc7f5589f5c746303c.setIcon(icon_d91f9412917553320a7a0f6c623dbac5);
+                marker_d33d316769af1583c6d379087f0bc4bf.setIcon(icon_9e97da88e9c8074a0b5c4db40cdf0cb2);
             
     
-            marker_cluster_439d1de5c11d2a7b707d99dd4919f984.addTo(map_8f8f3646c814d97093a6bbe0d1b58b55);
+            marker_cluster_84b53bf84f7c3db41f820cb406a8767c.addTo(map_f0b4465513f515ebe606a43d95758ac0);
         
     
-            map_8f8f3646c814d97093a6bbe0d1b58b55.fitBounds(
+            map_f0b4465513f515ebe606a43d95758ac0.fitBounds(
                 [[40.31364957812501, -116.32851257498262], [60.04357578125001, 19.821130703125004]],
                 {}
             );
         </script>
 <script>
-window.gpxCatalogSidePanelItems = [{"layer_name": "marker_0b3e09286394d59728547c0e913aab3e", "layer_type": "hike", "title": "Italy - Alta Via Dei Giganti", "subtitle": "Multi-Day Hike \u00b7 6 stages", "image": "../italy-alta-via-dei-giganti/images/20210911_083330-preview.jpg", "image_alt": "Italy - Alta Via Dei Giganti", "meta": [{"label": "Difficulty", "value": "difficult"}, {"label": "Distance", "value": "55 km"}, {"label": "Total Ascent", "value": "5108 m"}, {"label": "Total Descent", "value": "5044 m"}], "url": "../italy-alta-via-dei-giganti/"}, {"layer_name": "marker_da3af2ca14b452320bc882c65fd3f72a", "layer_type": "hike", "title": "Norway - Hike to Buarbreen Glacier", "subtitle": "Day hike", "image": "../norway-hike-to-buarbreen-glacier/images/20220724_101822-preview.jpg", "image_alt": "Norway - Hike to Buarbreen Glacier", "meta": [{"label": "Difficulty", "value": "easy"}, {"label": "Distance", "value": "4.97 km"}, {"label": "Total Ascent", "value": "423 m"}, {"label": "Total Descent", "value": "424 m"}], "url": "../norway-hike-to-buarbreen-glacier/"}, {"layer_name": "marker_f360ba9f587e08daac6e0542fb149f9b", "layer_type": "hike", "title": "Norway - Kjeragbolten Hike", "subtitle": "Day hike", "image": "../norway-kjeragbolten-hike/images/20220727_204333-preview.jpg", "image_alt": "Norway - Kjeragbolten Hike", "meta": [{"label": "Difficulty", "value": "moderate"}, {"label": "Distance", "value": "10.4 km"}, {"label": "Total Ascent", "value": "806 m"}, {"label": "Total Descent", "value": "806 m"}], "url": "../norway-kjeragbolten-hike/"}, {"layer_name": "marker_00cfb1c02efc8279cdc646fd097a08ac", "layer_type": "hike", "title": "Norway - Preikestolen Hike", "subtitle": "Day hike", "image": "../norway-preikestolen-hike/images/20220729_104817-preview.jpg", "image_alt": "Norway - Preikestolen Hike", "meta": [{"label": "Difficulty", "value": "easy"}, {"label": "Distance", "value": "7.95 km"}, {"label": "Total Ascent", "value": "606 m"}, {"label": "Total Descent", "value": "610 m"}], "url": "../norway-preikestolen-hike/"}, {"layer_name": "marker_d28030820baacb1ee273f57e442ab9c7", "layer_type": "hike", "title": "Anello delle Dolomiti Friulane", "subtitle": "Multi-Day Hike \u00b7 4 stages", "image": "../anello-delle-dolomiti-friulane/images/view_of_campanile-preview.jpg", "image_alt": "Anello delle Dolomiti Friulane", "meta": [{"label": "Difficulty", "value": "hard"}, {"label": "Distance", "value": "38 km"}, {"label": "Total Ascent", "value": "4893 m"}, {"label": "Total Descent", "value": "5141 m"}], "url": "../anello-delle-dolomiti-friulane/"}, {"layer_name": "marker_933c3117a294c7662731a9aff72ce200", "layer_type": "hike", "title": "Italy - Tre Cime di Lavaredo & Cadini di Misurina", "subtitle": "Day hike", "image": "../italy-tre-cime-di-lavaredo-cadini-di-misurina/images/20221031_125106-preview.jpg", "image_alt": "Italy - Tre Cime di Lavaredo & Cadini di Misurina", "meta": [{"label": "Difficulty", "value": "easy"}, {"label": "Distance", "value": "12.3 km"}, {"label": "Total Ascent", "value": "714 m"}, {"label": "Total Descent", "value": "714 m"}], "url": "../italy-tre-cime-di-lavaredo-cadini-di-misurina/"}, {"layer_name": "marker_aec5f795d2a95c74061e73e9f96ca879", "layer_type": "hike", "title": "Piancavallo - Hike to Forcella Palantina", "subtitle": "Day hike", "image": "../piancavallo-hike-to-forcella-palantina/images/bivio-preview.jpg", "image_alt": "Piancavallo - Hike to Forcella Palantina", "meta": [{"label": "Difficulty", "value": "moderate"}, {"label": "Distance", "value": "7.69 km"}, {"label": "Total Ascent", "value": "1037 m"}, {"label": "Total Descent", "value": "1061 m"}], "url": "../piancavallo-hike-to-forcella-palantina/"}, {"layer_name": "marker_7fa258a227eff60afb0deb434de4dcf7", "layer_type": "hike", "title": "Val di Zoldo - Hike above Citt\u00e0 di Fiume", "subtitle": "Day hike", "image": "../val-di-zoldo-hike-above-citt-di-fiume/images/04_mountain_view-preview.jpg", "image_alt": "Val di Zoldo - Hike above Citt\u00e0 di Fiume", "meta": [{"label": "Difficulty", "value": "moderate"}, {"label": "Distance", "value": "14 km"}, {"label": "Total Ascent", "value": "1001 m"}, {"label": "Total Descent", "value": "983 m"}], "url": "../val-di-zoldo-hike-above-citt-di-fiume/"}, {"layer_name": "marker_3a834ea2240a02720232994707db25e0", "layer_type": "hike", "title": "Italy - Cinque Terre Hiking", "subtitle": "Multi-Day Hike \u00b7 2 stages", "image": "../italy-cinque-terre-hiking/images/20230318_155940-preview.jpg", "image_alt": "Italy - Cinque Terre Hiking", "meta": [{"label": "Difficulty", "value": "easy"}, {"label": "Distance", "value": "12.4 km"}, {"label": "Total Ascent", "value": "777 m"}, {"label": "Total Descent", "value": "1164 m"}], "url": "../italy-cinque-terre-hiking/"}, {"layer_name": "marker_4085ad00aaa9eeb266bfadeca1d3ac75", "layer_type": "hike", "title": "Italy - Mondeval Sunset Hike", "subtitle": "Day hike", "image": "../italy-mondeval-sunset-hike/images/20230624_205700-preview.jpg", "image_alt": "Italy - Mondeval Sunset Hike", "meta": [{"label": "Difficulty", "value": "easy"}, {"label": "Distance", "value": "12.5 km"}, {"label": "Total Ascent", "value": "679 m"}, {"label": "Total Descent", "value": "679 m"}], "url": "../italy-mondeval-sunset-hike/"}, {"layer_name": "marker_c614faa5d5eb9eb572af54c2b14eeb2c", "layer_type": "hike", "title": "Anello delle Dolomiti Friulane - 2 Day Alternative", "subtitle": "Multi-Day Hike \u00b7 2 stages", "image": "../anello-delle-dolomiti-friulane-2-day-alternative/images/20230715_202807-preview.jpg", "image_alt": "Anello delle Dolomiti Friulane - 2 Day Alternative", "meta": [{"label": "Difficulty", "value": "hard"}, {"label": "Distance", "value": "22.9 km"}, {"label": "Total Ascent", "value": "2281 m"}, {"label": "Total Descent", "value": "2221 m"}], "url": "../anello-delle-dolomiti-friulane-2-day-alternative/"}, {"layer_name": "marker_4eb0d8a6668b7545dee3bf5859724b84", "layer_type": "hike", "title": "Switzerland - Baregg Hut", "subtitle": "Day hike", "image": "../switzerland-baregg-hut/images/20230724_145455-preview.jpg", "image_alt": "Switzerland - Baregg Hut", "meta": [{"label": "Difficulty", "value": "moderate"}, {"label": "Distance", "value": "13.9 km"}, {"label": "Total Ascent", "value": "980 m"}, {"label": "Total Descent", "value": "986 m"}], "url": "../switzerland-baregg-hut/"}, {"layer_name": "marker_53edd539e32a7c38d721ad9be33192f1", "layer_type": "hike", "title": "Switzerland - Gelmersee Loop", "subtitle": "Day hike", "image": "../switzerland-gelmersee-loop/images/20230722_114918-preview.jpg", "image_alt": "Switzerland - Gelmersee Loop", "meta": [{"label": "Difficulty", "value": "easy"}, {"label": "Distance", "value": "6.11 km"}, {"label": "Total Ascent", "value": "135 m"}, {"label": "Total Descent", "value": "140 m"}], "url": "../switzerland-gelmersee-loop/"}, {"layer_name": "marker_c5e8da136d426d211a9e605782529755", "layer_type": "hike", "title": "Switzerland - North Face Trail", "subtitle": "Day hike", "image": "../switzerland-north-face-trail/images/20230726_131936-preview.jpg", "image_alt": "Switzerland - North Face Trail", "meta": [{"label": "Difficulty", "value": "easy"}, {"label": "Distance", "value": "16.7 km"}, {"label": "Total Ascent", "value": "730 m"}, {"label": "Total Descent", "value": "745 m"}], "url": "../switzerland-north-face-trail/"}, {"layer_name": "marker_a879a2f2c8e107862454f845cd6c7036", "layer_type": "hike", "title": "Slovenia - Triglav Lakes Loop", "subtitle": "Multi-Day Hike \u00b7 3 stages", "image": "../slovenia-triglav-lakes-loop/images/20230816_092708-preview.jpg", "image_alt": "Slovenia - Triglav Lakes Loop", "meta": [{"label": "Difficulty", "value": "moderate"}, {"label": "Distance", "value": "37.1 km"}, {"label": "Total Ascent", "value": "1927 m"}, {"label": "Total Descent", "value": "1924 m"}], "url": "../slovenia-triglav-lakes-loop/"}, {"layer_name": "marker_1a502511df467183be5272876bd5978d", "layer_type": "hike", "title": "Italy - Cinque Torri Overnight", "subtitle": "Multi-Day Hike \u00b7 2 stages", "image": "../italy-cinque-torri-overnight/images/20230909_084818-preview.jpg", "image_alt": "Italy - Cinque Torri Overnight", "meta": [{"label": "Difficulty", "value": "moderate"}, {"label": "Distance", "value": "15.3 km"}, {"label": "Total Ascent", "value": "781 m"}, {"label": "Total Descent", "value": "609 m"}], "url": "../italy-cinque-torri-overnight/"}, {"layer_name": "marker_7fe28f11d8d705508f0b025ba7b4eda1", "layer_type": "hike", "title": "Italy - Lago Di Coldai", "subtitle": "Day hike", "image": "../italy-lago-di-coldai/images/20230910_073049-preview.jpg", "image_alt": "Italy - Lago Di Coldai", "meta": [{"label": "Difficulty", "value": "moderate"}, {"label": "Distance", "value": "13.4 km"}, {"label": "Total Ascent", "value": "769 m"}, {"label": "Total Descent", "value": "762 m"}], "url": "../italy-lago-di-coldai/"}, {"layer_name": "marker_d952356daf46ae7fbd22f17fd6321252", "layer_type": "hike", "title": "Italy - Via Ogliastra", "subtitle": "Multi-Day Hike \u00b7 7 stages", "image": "../italy-via-ogliastra/images/20230929_113940-preview.jpg", "image_alt": "Italy - Via Ogliastra", "meta": [{"label": "Difficulty", "value": "moderate"}, {"label": "Distance", "value": "121 km"}, {"label": "Total Ascent", "value": "1994 m"}, {"label": "Total Descent", "value": "2427 m"}], "url": "../italy-via-ogliastra/"}, {"layer_name": "marker_421fdbbd617c3bccf80dce39cff5d4bf", "layer_type": "hike", "title": "Italy - Cima Manera Sunrise", "subtitle": "Day hike", "image": "../italy-cima-manera-sunrise/images/20231022_080920-preview.jpg", "image_alt": "Italy - Cima Manera Sunrise", "meta": [{"label": "Difficulty", "value": "moderate"}, {"label": "Distance", "value": "9.62 km"}, {"label": "Total Ascent", "value": "1133 m"}, {"label": "Total Descent", "value": "1133 m"}], "url": "../italy-cima-manera-sunrise/"}, {"layer_name": "marker_ef53a9154f4836eed2af6c0599f108c7", "layer_type": "hike", "title": "Italy - Croda Da Lago", "subtitle": "Multi-Day Hike \u00b7 2 stages", "image": "../italy-croda-da-lago/images/20231014_125158-preview.jpg", "image_alt": "Italy - Croda Da Lago", "meta": [{"label": "Difficulty", "value": "moderate"}, {"label": "Distance", "value": "16.9 km"}, {"label": "Total Ascent", "value": "1026 m"}, {"label": "Total Descent", "value": "1025 m"}], "url": "../italy-croda-da-lago/"}, {"layer_name": "marker_3a3005e4cdd1907efe65de6bb02c9d5e", "layer_type": "hike", "title": "Italy - Cascate dell'Arzino", "subtitle": "Day hike", "image": "../italy-cascate-dell-arzino/images/20231104_124726-preview.jpg", "image_alt": "Italy - Cascate dell'Arzino", "meta": [{"label": "Difficulty", "value": "easy"}, {"label": "Distance", "value": "8.13 km"}, {"label": "Total Ascent", "value": "253 m"}, {"label": "Total Descent", "value": "254 m"}], "url": "../italy-cascate-dell-arzino/"}, {"layer_name": "marker_54b4767910ec6625b61bdb7753e3e407", "layer_type": "hike", "title": "Italy - Lago di Barcis", "subtitle": "Day hike", "image": "../italy-lago-di-barcis/images/20231118_135331-preview.jpg", "image_alt": "Italy - Lago di Barcis", "meta": [{"label": "Difficulty", "value": "easy"}, {"label": "Distance", "value": "7.83 km"}, {"label": "Total Ascent", "value": "149 m"}, {"label": "Total Descent", "value": "149 m"}], "url": "../italy-lago-di-barcis/"}, {"layer_name": "marker_532aeac9ae22f313971e19f5f4970dba", "layer_type": "hike", "title": "Italy - Ta Lipa Pot", "subtitle": "Day hike", "image": "../italy-ta-lipa-pot/images/20231125_134754-preview.jpg", "image_alt": "Italy - Ta Lipa Pot", "meta": [{"label": "Difficulty", "value": "easy"}, {"label": "Distance", "value": "8.68 km"}, {"label": "Total Ascent", "value": "280 m"}, {"label": "Total Descent", "value": "277 m"}], "url": "../italy-ta-lipa-pot/"}, {"layer_name": "marker_981f772bdc27496d5349d1fb72062b4c", "layer_type": "hike", "title": "Italy - Colli di Budoia e Polcenigo", "subtitle": "Day hike", "image": "../italy-colli-di-budoia-e-polcenigo/images/20240127_140139-preview.jpg", "image_alt": "Italy - Colli di Budoia e Polcenigo", "meta": [{"label": "Difficulty", "value": "easy"}, {"label": "Distance", "value": "13.8 km"}, {"label": "Total Ascent", "value": "438 m"}, {"label": "Total Descent", "value": "430 m"}], "url": "../italy-colli-di-budoia-e-polcenigo/"}, {"layer_name": "marker_8524c87f506368915809bb8b5710b4fb", "layer_type": "hike", "title": "Italy - Monte Rite", "subtitle": "Day hike", "image": "../italy-monte-rite/images/20240217_153331-preview.jpg", "image_alt": "Italy - Monte Rite", "meta": [{"label": "Difficulty", "value": "moderate"}, {"label": "Distance", "value": "11.6 km"}, {"label": "Total Ascent", "value": "619 m"}, {"label": "Total Descent", "value": "626 m"}], "url": "../italy-monte-rite/"}, {"layer_name": "marker_011a159f0a895a09c9150352ee2af12f", "layer_type": "hike", "title": "Italy - Rifugio Citta Di Carpi", "subtitle": "Multi-Day Hike \u00b7 2 stages", "image": "../italy-rifugio-citta-di-carpi/images/20240317_061950-preview.jpg", "image_alt": "Italy - Rifugio Citta Di Carpi", "meta": [{"label": "Difficulty", "value": "easy"}, {"label": "Distance", "value": "7.87 km"}, {"label": "Total Ascent", "value": "367 m"}, {"label": "Total Descent", "value": "359 m"}], "url": "../italy-rifugio-citta-di-carpi/"}, {"layer_name": "marker_c46ad45ea928c76f05f03d4100a4a1fd", "layer_type": "hike", "title": "Albania - Theth Blue Eye", "subtitle": "Day hike", "image": "../albania-theth-blue-eye/images/20240430_152110-preview.jpg", "image_alt": "Albania - Theth Blue Eye", "meta": [{"label": "Difficulty", "value": "moderate"}, {"label": "Distance", "value": "16 km"}, {"label": "Total Ascent", "value": "477 m"}, {"label": "Total Descent", "value": "861 m"}], "url": "../albania-theth-blue-eye/"}, {"layer_name": "marker_9ae47ea31ebe43ab7ddf2462f9e3cbd7", "layer_type": "hike", "title": "Albania - Theth to Valbona Traverse", "subtitle": "Day hike", "image": "../albania-theth-to-valbona-traverse/images/20240501_104246-preview.jpg", "image_alt": "Albania - Theth to Valbona Traverse", "meta": [{"label": "Difficulty", "value": "hard"}, {"label": "Distance", "value": "17.2 km"}, {"label": "Total Ascent", "value": "1206 m"}, {"label": "Total Descent", "value": "1111 m"}], "url": "../albania-theth-to-valbona-traverse/"}, {"layer_name": "marker_6c19ca79e9272c38e9c80982ce43126f", "layer_type": "hike", "title": "Italy - Forcella Scodavacca", "subtitle": "Day hike", "image": "../italy-forcella-scodavacca/images/20240511_141100-preview.jpg", "image_alt": "Italy - Forcella Scodavacca", "meta": [{"label": "Difficulty", "value": "moderate"}, {"label": "Distance", "value": "8.23 km"}, {"label": "Total Ascent", "value": "822 m"}, {"label": "Total Descent", "value": "807 m"}], "url": "../italy-forcella-scodavacca/"}, {"layer_name": "marker_e58ff6ed7e810fde7c320a35fecc2d33", "layer_type": "hike", "title": "Yoho National Park - Lake O'Hara Loop", "subtitle": "Day hike", "image": "../yoho-national-park-lake-o-hara-loop/images/lake-ohara-view-2-preview.jpg", "image_alt": "Yoho National Park - Lake O'Hara Loop", "meta": [{"label": "Difficulty", "value": "hard"}, {"label": "Distance", "value": "13.9 km"}, {"label": "Total Ascent", "value": "1146 m"}, {"label": "Total Descent", "value": "1137 m"}], "url": "../yoho-national-park-lake-o-hara-loop/"}, {"layer_name": "marker_2d5a564c5ade45bc7f5589f5c746303c", "layer_type": "hike", "title": "Killarney Provincial Park - La Cloche Silhouette Trail", "subtitle": "Multi-Day Hike \u00b7 5 stages", "image": "../killarney-provincial-park-la-cloche-silhouette-trail/images/20250920_180552-preview.jpg", "image_alt": "Killarney Provincial Park - La Cloche Silhouette Trail", "meta": [{"label": "Difficulty", "value": "hard"}, {"label": "Distance", "value": "81.8 km"}, {"label": "Total Ascent", "value": "3859 m"}, {"label": "Total Descent", "value": "3860 m"}], "url": "../killarney-provincial-park-la-cloche-silhouette-trail/"}];
+window.gpxCatalogSidePanelItems = [{"layer_name": "marker_a321eacf7d454e95884b7f38d237aaf1", "layer_type": "hike", "title": "Italy - Alta Via Dei Giganti", "subtitle": "Multi-Day Hike \u00b7 6 stages", "image": "../italy-alta-via-dei-giganti/images/20210911_083330-preview.jpg", "image_alt": "Italy - Alta Via Dei Giganti", "meta": [{"label": "Difficulty", "value": "difficult"}, {"label": "Distance", "value": "55 km"}, {"label": "Total Ascent", "value": "5108 m"}, {"label": "Total Descent", "value": "5044 m"}], "url": "../italy-alta-via-dei-giganti/"}, {"layer_name": "marker_d0759aa80bbdd369e721fcc711caee9b", "layer_type": "hike", "title": "Norway - Hike to Buarbreen Glacier", "subtitle": "Day hike", "image": "../norway-hike-to-buarbreen-glacier/images/20220724_101822-preview.jpg", "image_alt": "Norway - Hike to Buarbreen Glacier", "meta": [{"label": "Difficulty", "value": "easy"}, {"label": "Distance", "value": "4.97 km"}, {"label": "Total Ascent", "value": "423 m"}, {"label": "Total Descent", "value": "424 m"}], "url": "../norway-hike-to-buarbreen-glacier/"}, {"layer_name": "marker_f7b3b4fddaf09aa0e744e50e5fb9db13", "layer_type": "hike", "title": "Norway - Kjeragbolten Hike", "subtitle": "Day hike", "image": "../norway-kjeragbolten-hike/images/20220727_204333-preview.jpg", "image_alt": "Norway - Kjeragbolten Hike", "meta": [{"label": "Difficulty", "value": "moderate"}, {"label": "Distance", "value": "10.4 km"}, {"label": "Total Ascent", "value": "806 m"}, {"label": "Total Descent", "value": "806 m"}], "url": "../norway-kjeragbolten-hike/"}, {"layer_name": "marker_506e6f3eb6cc2d2a97e34fe9a69aa69b", "layer_type": "hike", "title": "Norway - Preikestolen Hike", "subtitle": "Day hike", "image": "../norway-preikestolen-hike/images/20220729_104817-preview.jpg", "image_alt": "Norway - Preikestolen Hike", "meta": [{"label": "Difficulty", "value": "easy"}, {"label": "Distance", "value": "7.95 km"}, {"label": "Total Ascent", "value": "606 m"}, {"label": "Total Descent", "value": "610 m"}], "url": "../norway-preikestolen-hike/"}, {"layer_name": "marker_37de51e65a03135426d6b2097b6b77b4", "layer_type": "hike", "title": "Anello delle Dolomiti Friulane", "subtitle": "Multi-Day Hike \u00b7 4 stages", "image": "../anello-delle-dolomiti-friulane/images/view_of_campanile-preview.jpg", "image_alt": "Anello delle Dolomiti Friulane", "meta": [{"label": "Difficulty", "value": "hard"}, {"label": "Distance", "value": "38 km"}, {"label": "Total Ascent", "value": "4893 m"}, {"label": "Total Descent", "value": "5141 m"}], "url": "../anello-delle-dolomiti-friulane/"}, {"layer_name": "marker_d51f721e5c7bac4e4c96009c3f06e9db", "layer_type": "hike", "title": "Italy - Tre Cime di Lavaredo & Cadini di Misurina", "subtitle": "Day hike", "image": "../italy-tre-cime-di-lavaredo-cadini-di-misurina/images/20221031_125106-preview.jpg", "image_alt": "Italy - Tre Cime di Lavaredo & Cadini di Misurina", "meta": [{"label": "Difficulty", "value": "easy"}, {"label": "Distance", "value": "12.3 km"}, {"label": "Total Ascent", "value": "714 m"}, {"label": "Total Descent", "value": "714 m"}], "url": "../italy-tre-cime-di-lavaredo-cadini-di-misurina/"}, {"layer_name": "marker_8111b9dcdf33f7590dcb4b1083be5a83", "layer_type": "hike", "title": "Piancavallo - Hike to Forcella Palantina", "subtitle": "Day hike", "image": "../piancavallo-hike-to-forcella-palantina/images/bivio-preview.jpg", "image_alt": "Piancavallo - Hike to Forcella Palantina", "meta": [{"label": "Difficulty", "value": "moderate"}, {"label": "Distance", "value": "7.69 km"}, {"label": "Total Ascent", "value": "1037 m"}, {"label": "Total Descent", "value": "1061 m"}], "url": "../piancavallo-hike-to-forcella-palantina/"}, {"layer_name": "marker_f278195dee82a12d067bab7714abb07b", "layer_type": "hike", "title": "Val di Zoldo - Hike above Citt\u00e0 di Fiume", "subtitle": "Day hike", "image": "../val-di-zoldo-hike-above-citt-di-fiume/images/04_mountain_view-preview.jpg", "image_alt": "Val di Zoldo - Hike above Citt\u00e0 di Fiume", "meta": [{"label": "Difficulty", "value": "moderate"}, {"label": "Distance", "value": "14 km"}, {"label": "Total Ascent", "value": "1001 m"}, {"label": "Total Descent", "value": "983 m"}], "url": "../val-di-zoldo-hike-above-citt-di-fiume/"}, {"layer_name": "marker_2d1871a74edc1c56c1d89c3da9be6882", "layer_type": "hike", "title": "Italy - Cinque Terre Hiking", "subtitle": "Multi-Day Hike \u00b7 2 stages", "image": "../italy-cinque-terre-hiking/images/20230318_155940-preview.jpg", "image_alt": "Italy - Cinque Terre Hiking", "meta": [{"label": "Difficulty", "value": "easy"}, {"label": "Distance", "value": "12.4 km"}, {"label": "Total Ascent", "value": "777 m"}, {"label": "Total Descent", "value": "1164 m"}], "url": "../italy-cinque-terre-hiking/"}, {"layer_name": "marker_d922dc2c2fc33e55d81a405f841c9f3d", "layer_type": "hike", "title": "Italy - Mondeval Sunset Hike", "subtitle": "Day hike", "image": "../italy-mondeval-sunset-hike/images/20230624_205700-preview.jpg", "image_alt": "Italy - Mondeval Sunset Hike", "meta": [{"label": "Difficulty", "value": "easy"}, {"label": "Distance", "value": "12.5 km"}, {"label": "Total Ascent", "value": "679 m"}, {"label": "Total Descent", "value": "679 m"}], "url": "../italy-mondeval-sunset-hike/"}, {"layer_name": "marker_a6d6bc9ff948895f9583e5788070f65f", "layer_type": "hike", "title": "Anello delle Dolomiti Friulane - 2 Day Alternative", "subtitle": "Multi-Day Hike \u00b7 2 stages", "image": "../anello-delle-dolomiti-friulane-2-day-alternative/images/20230715_202807-preview.jpg", "image_alt": "Anello delle Dolomiti Friulane - 2 Day Alternative", "meta": [{"label": "Difficulty", "value": "hard"}, {"label": "Distance", "value": "22.9 km"}, {"label": "Total Ascent", "value": "2281 m"}, {"label": "Total Descent", "value": "2221 m"}], "url": "../anello-delle-dolomiti-friulane-2-day-alternative/"}, {"layer_name": "marker_b485bfe6c50d3f13c2a53aaf45015855", "layer_type": "hike", "title": "Switzerland - Baregg Hut", "subtitle": "Day hike", "image": "../switzerland-baregg-hut/images/20230724_145455-preview.jpg", "image_alt": "Switzerland - Baregg Hut", "meta": [{"label": "Difficulty", "value": "moderate"}, {"label": "Distance", "value": "13.9 km"}, {"label": "Total Ascent", "value": "980 m"}, {"label": "Total Descent", "value": "986 m"}], "url": "../switzerland-baregg-hut/"}, {"layer_name": "marker_7bbff4a235188b455ad5720fc332baa0", "layer_type": "hike", "title": "Switzerland - Gelmersee Loop", "subtitle": "Day hike", "image": "../switzerland-gelmersee-loop/images/20230722_114918-preview.jpg", "image_alt": "Switzerland - Gelmersee Loop", "meta": [{"label": "Difficulty", "value": "easy"}, {"label": "Distance", "value": "6.11 km"}, {"label": "Total Ascent", "value": "135 m"}, {"label": "Total Descent", "value": "140 m"}], "url": "../switzerland-gelmersee-loop/"}, {"layer_name": "marker_762981b6264b04a0a6449ecca6bd6335", "layer_type": "hike", "title": "Switzerland - North Face Trail", "subtitle": "Day hike", "image": "../switzerland-north-face-trail/images/20230726_131936-preview.jpg", "image_alt": "Switzerland - North Face Trail", "meta": [{"label": "Difficulty", "value": "easy"}, {"label": "Distance", "value": "16.7 km"}, {"label": "Total Ascent", "value": "730 m"}, {"label": "Total Descent", "value": "745 m"}], "url": "../switzerland-north-face-trail/"}, {"layer_name": "marker_fd3191c4407b2796e45c22efbaec6d4b", "layer_type": "hike", "title": "Slovenia - Triglav Lakes Loop", "subtitle": "Multi-Day Hike \u00b7 3 stages", "image": "../slovenia-triglav-lakes-loop/images/20230816_092708-preview.jpg", "image_alt": "Slovenia - Triglav Lakes Loop", "meta": [{"label": "Difficulty", "value": "moderate"}, {"label": "Distance", "value": "37.1 km"}, {"label": "Total Ascent", "value": "1927 m"}, {"label": "Total Descent", "value": "1924 m"}], "url": "../slovenia-triglav-lakes-loop/"}, {"layer_name": "marker_c247c8cb255ee385b6227e0de92fce76", "layer_type": "hike", "title": "Italy - Cinque Torri Overnight", "subtitle": "Multi-Day Hike \u00b7 2 stages", "image": "../italy-cinque-torri-overnight/images/20230909_084818-preview.jpg", "image_alt": "Italy - Cinque Torri Overnight", "meta": [{"label": "Difficulty", "value": "moderate"}, {"label": "Distance", "value": "15.3 km"}, {"label": "Total Ascent", "value": "781 m"}, {"label": "Total Descent", "value": "609 m"}], "url": "../italy-cinque-torri-overnight/"}, {"layer_name": "marker_856d913ff6666d926734c7a4ee6a6338", "layer_type": "hike", "title": "Italy - Lago Di Coldai", "subtitle": "Day hike", "image": "../italy-lago-di-coldai/images/20230910_073049-preview.jpg", "image_alt": "Italy - Lago Di Coldai", "meta": [{"label": "Difficulty", "value": "moderate"}, {"label": "Distance", "value": "13.4 km"}, {"label": "Total Ascent", "value": "769 m"}, {"label": "Total Descent", "value": "762 m"}], "url": "../italy-lago-di-coldai/"}, {"layer_name": "marker_de5058416c032cf35b31e45024e3d6db", "layer_type": "hike", "title": "Italy - Via Ogliastra", "subtitle": "Multi-Day Hike \u00b7 7 stages", "image": "../italy-via-ogliastra/images/20230929_113940-preview.jpg", "image_alt": "Italy - Via Ogliastra", "meta": [{"label": "Difficulty", "value": "moderate"}, {"label": "Distance", "value": "121 km"}, {"label": "Total Ascent", "value": "1994 m"}, {"label": "Total Descent", "value": "2427 m"}], "url": "../italy-via-ogliastra/"}, {"layer_name": "marker_37eb3550d1395ad988bea7fab6e3ddb7", "layer_type": "hike", "title": "Italy - Cima Manera Sunrise", "subtitle": "Day hike", "image": "../italy-cima-manera-sunrise/images/20231022_080920-preview.jpg", "image_alt": "Italy - Cima Manera Sunrise", "meta": [{"label": "Difficulty", "value": "moderate"}, {"label": "Distance", "value": "9.62 km"}, {"label": "Total Ascent", "value": "1133 m"}, {"label": "Total Descent", "value": "1133 m"}], "url": "../italy-cima-manera-sunrise/"}, {"layer_name": "marker_20988f76b4a01a30bea45e4ffbf8b6d7", "layer_type": "hike", "title": "Italy - Croda Da Lago", "subtitle": "Multi-Day Hike \u00b7 2 stages", "image": "../italy-croda-da-lago/images/20231014_125158-preview.jpg", "image_alt": "Italy - Croda Da Lago", "meta": [{"label": "Difficulty", "value": "moderate"}, {"label": "Distance", "value": "16.9 km"}, {"label": "Total Ascent", "value": "1026 m"}, {"label": "Total Descent", "value": "1025 m"}], "url": "../italy-croda-da-lago/"}, {"layer_name": "marker_0f5ef0fdbfd6d08509128c34a431405f", "layer_type": "hike", "title": "Italy - Cascate dell'Arzino", "subtitle": "Day hike", "image": "../italy-cascate-dell-arzino/images/20231104_124726-preview.jpg", "image_alt": "Italy - Cascate dell'Arzino", "meta": [{"label": "Difficulty", "value": "easy"}, {"label": "Distance", "value": "8.13 km"}, {"label": "Total Ascent", "value": "253 m"}, {"label": "Total Descent", "value": "254 m"}], "url": "../italy-cascate-dell-arzino/"}, {"layer_name": "marker_bea3eaf881cf4528a5f6afdffdc58d02", "layer_type": "hike", "title": "Italy - Lago di Barcis", "subtitle": "Day hike", "image": "../italy-lago-di-barcis/images/20231118_135331-preview.jpg", "image_alt": "Italy - Lago di Barcis", "meta": [{"label": "Difficulty", "value": "easy"}, {"label": "Distance", "value": "7.83 km"}, {"label": "Total Ascent", "value": "149 m"}, {"label": "Total Descent", "value": "149 m"}], "url": "../italy-lago-di-barcis/"}, {"layer_name": "marker_bacd848146428b75740d55480e7eb9e8", "layer_type": "hike", "title": "Italy - Ta Lipa Pot", "subtitle": "Day hike", "image": "../italy-ta-lipa-pot/images/20231125_134754-preview.jpg", "image_alt": "Italy - Ta Lipa Pot", "meta": [{"label": "Difficulty", "value": "easy"}, {"label": "Distance", "value": "8.68 km"}, {"label": "Total Ascent", "value": "280 m"}, {"label": "Total Descent", "value": "277 m"}], "url": "../italy-ta-lipa-pot/"}, {"layer_name": "marker_c1b6025969ec33720934d8306805f89f", "layer_type": "hike", "title": "Italy - Colli di Budoia e Polcenigo", "subtitle": "Day hike", "image": "../italy-colli-di-budoia-e-polcenigo/images/20240127_140139-preview.jpg", "image_alt": "Italy - Colli di Budoia e Polcenigo", "meta": [{"label": "Difficulty", "value": "easy"}, {"label": "Distance", "value": "13.8 km"}, {"label": "Total Ascent", "value": "438 m"}, {"label": "Total Descent", "value": "430 m"}], "url": "../italy-colli-di-budoia-e-polcenigo/"}, {"layer_name": "marker_cd4445cba15599b95b1b62de59bd5630", "layer_type": "hike", "title": "Italy - Monte Rite", "subtitle": "Day hike", "image": "../italy-monte-rite/images/20240217_153331-preview.jpg", "image_alt": "Italy - Monte Rite", "meta": [{"label": "Difficulty", "value": "moderate"}, {"label": "Distance", "value": "11.6 km"}, {"label": "Total Ascent", "value": "619 m"}, {"label": "Total Descent", "value": "626 m"}], "url": "../italy-monte-rite/"}, {"layer_name": "marker_5a086bed035ab380528c55a1d6262f57", "layer_type": "hike", "title": "Italy - Rifugio Citta Di Carpi", "subtitle": "Multi-Day Hike \u00b7 2 stages", "image": "../italy-rifugio-citta-di-carpi/images/20240317_061950-preview.jpg", "image_alt": "Italy - Rifugio Citta Di Carpi", "meta": [{"label": "Difficulty", "value": "easy"}, {"label": "Distance", "value": "7.87 km"}, {"label": "Total Ascent", "value": "367 m"}, {"label": "Total Descent", "value": "359 m"}], "url": "../italy-rifugio-citta-di-carpi/"}, {"layer_name": "marker_6c14c503c9bd5850ebba09b3b0bb1244", "layer_type": "hike", "title": "Albania - Theth Blue Eye", "subtitle": "Day hike", "image": "../albania-theth-blue-eye/images/20240430_152110-preview.jpg", "image_alt": "Albania - Theth Blue Eye", "meta": [{"label": "Difficulty", "value": "moderate"}, {"label": "Distance", "value": "16 km"}, {"label": "Total Ascent", "value": "477 m"}, {"label": "Total Descent", "value": "861 m"}], "url": "../albania-theth-blue-eye/"}, {"layer_name": "marker_5550b0cc6458ab52c72f46fd01e7fbb6", "layer_type": "hike", "title": "Albania - Theth to Valbona Traverse", "subtitle": "Day hike", "image": "../albania-theth-to-valbona-traverse/images/20240501_104246-preview.jpg", "image_alt": "Albania - Theth to Valbona Traverse", "meta": [{"label": "Difficulty", "value": "hard"}, {"label": "Distance", "value": "17.2 km"}, {"label": "Total Ascent", "value": "1206 m"}, {"label": "Total Descent", "value": "1111 m"}], "url": "../albania-theth-to-valbona-traverse/"}, {"layer_name": "marker_5824d42f746cbd201253fbb62fbcec98", "layer_type": "hike", "title": "Italy - Cumieli Viewpoint", "subtitle": "Day hike", "image": "../italy-cumieli-viewpoint/images/20240519_150243-preview.jpg", "image_alt": "Italy - Cumieli Viewpoint", "meta": [{"label": "Difficulty", "value": "easy"}, {"label": "Distance", "value": "6.83 km"}, {"label": "Total Ascent", "value": "307 m"}, {"label": "Total Descent", "value": "302 m"}], "url": "../italy-cumieli-viewpoint/"}, {"layer_name": "marker_3762d39f1255d0d952fdbf9ce39322dc", "layer_type": "hike", "title": "Italy - Forcella Scodavacca", "subtitle": "Day hike", "image": "../italy-forcella-scodavacca/images/20240511_141100-preview.jpg", "image_alt": "Italy - Forcella Scodavacca", "meta": [{"label": "Difficulty", "value": "moderate"}, {"label": "Distance", "value": "8.23 km"}, {"label": "Total Ascent", "value": "822 m"}, {"label": "Total Descent", "value": "807 m"}], "url": "../italy-forcella-scodavacca/"}, {"layer_name": "marker_c02e156793525208cc3412363b0362e3", "layer_type": "hike", "title": "Italy - Col Di Roan", "subtitle": "Day hike", "image": "../italy-col-di-roan/images/20240602_124454-preview.jpg", "image_alt": "Italy - Col Di Roan", "meta": [{"label": "Difficulty", "value": "moderate"}, {"label": "Distance", "value": "9.19 km"}, {"label": "Total Ascent", "value": "617 m"}, {"label": "Total Descent", "value": "618 m"}], "url": "../italy-col-di-roan/"}, {"layer_name": "marker_5fdbfd671f0b86a4208c15e9198c21bf", "layer_type": "hike", "title": "Italy - Lago Di Levico", "subtitle": "Day hike", "image": "../italy-lago-di-levico/images/20240615_124237-preview.jpg", "image_alt": "Italy - Lago Di Levico", "meta": [{"label": "Difficulty", "value": "easy"}, {"label": "Distance", "value": "10.3 km"}, {"label": "Total Ascent", "value": "192 m"}, {"label": "Total Descent", "value": "188 m"}], "url": "../italy-lago-di-levico/"}, {"layer_name": "marker_34e09acefc9d94f07a7c4862acb5b414", "layer_type": "hike", "title": "Italy - Rifugio Scarpa Overnight", "subtitle": "Multi-Day Hike \u00b7 2 stages", "image": "../italy-rifugio-scarpa-overnight/images/20240622_161807-preview.jpg", "image_alt": "Italy - Rifugio Scarpa Overnight", "meta": [{"label": "Difficulty", "value": "moderate"}, {"label": "Distance", "value": "11.3 km"}, {"label": "Total Ascent", "value": "889 m"}, {"label": "Total Descent", "value": "866 m"}], "url": "../italy-rifugio-scarpa-overnight/"}, {"layer_name": "marker_0ff988a0b48a307a55c5b8496dc40a08", "layer_type": "hike", "title": "Yoho National Park - Lake O'Hara Loop", "subtitle": "Day hike", "image": "../yoho-national-park-lake-o-hara-loop/images/lake-ohara-view-2-preview.jpg", "image_alt": "Yoho National Park - Lake O'Hara Loop", "meta": [{"label": "Difficulty", "value": "hard"}, {"label": "Distance", "value": "13.9 km"}, {"label": "Total Ascent", "value": "1146 m"}, {"label": "Total Descent", "value": "1137 m"}], "url": "../yoho-national-park-lake-o-hara-loop/"}, {"layer_name": "marker_d33d316769af1583c6d379087f0bc4bf", "layer_type": "hike", "title": "Killarney Provincial Park - La Cloche Silhouette Trail", "subtitle": "Multi-Day Hike \u00b7 5 stages", "image": "../killarney-provincial-park-la-cloche-silhouette-trail/images/20250920_180552-preview.jpg", "image_alt": "Killarney Provincial Park - La Cloche Silhouette Trail", "meta": [{"label": "Difficulty", "value": "hard"}, {"label": "Distance", "value": "81.8 km"}, {"label": "Total Ascent", "value": "3859 m"}, {"label": "Total Descent", "value": "3860 m"}], "url": "../killarney-provincial-park-la-cloche-silhouette-trail/"}];
 
 function gpxCatalogUpdateSidePanel(item) {
+  // On mobile, reveal the panel (it's hidden while the "Map" tab is active).
+  if (window.gpxCatalogSetMobileView) {
+    window.gpxCatalogSetMobileView('details');
+  }
+
+  // Pages with a photo gallery (e.g. hike.html) own the panel rendering; this is only the
+  // fallback renderer for pages without one (e.g. the world map, which needs the "Open hike" link).
+  if (window.gpxCatalogOnSidePanelItem) {
+    window.gpxCatalogOnSidePanelItem(item);
+    return;
+  }
+
   var panel = document.getElementById('map-side-panel');
   if (!panel) {
     return;
@@ -1181,13 +1366,17 @@ function gpxCatalogUpdateSidePanel(item) {
   var linkHtml = item.url ?
     '<a class="button" href="' + item.url + '">Open hike</a>' : '';
 
+  var imageHtml = item.url ?
+    '<a href="' + item.url + '"><img class="panel-image" src="' + item.image + '" alt="' + item.image_alt + '"></a>' :
+    '<img class="panel-image" src="' + item.image + '" alt="' + item.image_alt + '">';
+
   panel.innerHTML =
     '<div class="panel-header">' +
       '<h2>' + item.title + '</h2>' +
       '<p>' + item.subtitle + '</p>' +
     '</div>' +
     '<div class="panel-image-wrap">' +
-      '<img class="panel-image" src="' + item.image + '" alt="' + item.image_alt + '">' +
+      imageHtml +
     '</div>' +
     '<div class="panel-meta">' + metaHtml + '</div>' +
     linkHtml;

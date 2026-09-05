@@ -43,6 +43,12 @@
 }
 
 * { box-sizing: border-box; }
+/* Bootstrap 3 glyphicons (injected by Folium alongside Bootstrap 5, later in the document)
+   sets `html { font-size: 62.5% }`, shrinking every rem-based size on the page. The extra
+   class beats it on specificity without needing !important. */
+html.gpx-catalog {
+  font-size: 16px;
+}
 /* html+body (rather than a lone body selector) beats the Bootstrap `body{...}` reset that
    Folium injects for the embedded map, whose stylesheet <link> lands later in the document. */
 html body {
@@ -255,7 +261,8 @@ nav a:hover {
 
 .map-panel-inner {
   display: grid;
-  grid-template-columns: minmax(0, 2fr) 340px;
+  /* Map column keeps a usable minimum width instead of shrinking to near-zero next to the fixed side panel. */
+  grid-template-columns: minmax(420px, 2fr) minmax(300px, 340px);
   gap: 1rem;
   align-items: start;
 }
@@ -277,6 +284,106 @@ nav a:hover {
 .map-panel--full .folium-map,
 .map-panel--full .side-panel {
   min-height: 70vh;
+}
+
+/* Mobile map/details toggle: hidden until the layout stacks (see max-width: 640px below). */
+.mobile-view-toggle {
+  display: none;
+  gap: 0.5rem;
+}
+
+.mobile-view-btn {
+  flex: 1;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border);
+  background: var(--panel-alt);
+  color: var(--muted);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.mobile-view-btn.active {
+  background: var(--mustard-300);
+  border-color: var(--mustard-300);
+  color: var(--ink);
+}
+
+/* Same global `button:hover { background }` reset as .legend-item; keep each state's own color. */
+.mobile-view-btn:hover {
+  background: var(--panel-alt);
+}
+
+.mobile-view-btn.active:hover {
+  background: var(--mustard-300);
+}
+
+.mobile-view-arrow {
+  display: none;
+  margin-right: 0.3rem;
+}
+
+.mobile-view-btn--back .mobile-view-arrow {
+  display: inline;
+}
+
+@media (max-width: 900px) {
+  .map-panel-inner {
+    grid-template-columns: minmax(280px, 2fr) minmax(220px, 260px);
+  }
+}
+
+@media (max-width: 640px) {
+  .mobile-view-toggle {
+    display: flex;
+  }
+
+  .map-panel-inner {
+    grid-template-columns: 1fr;
+  }
+
+  /* Fallback stacked sizing if JS is unavailable; overridden by the toggle rules below when active. */
+  .folium-map {
+    min-height: 50vh;
+  }
+
+  .side-panel {
+    min-height: 0;
+    max-height: 60vh;
+    overflow-y: auto;
+  }
+
+  .map-panel--full .folium-map,
+  .map-panel--full .side-panel {
+    min-height: 0;
+  }
+
+  .map-panel-inner.mobile-view-map .side-panel {
+    display: none;
+  }
+
+  /* Folium/Leaflet sets `height: 100%` on the map div via an injected ID selector, which
+     always outranks class selectors here — give the grid container a definite height instead
+     so that 100% has something real to resolve against. */
+  .map-panel-inner.mobile-view-map {
+    height: calc(100vh - 260px);
+  }
+
+  .map-panel-inner.mobile-view-map .folium-map {
+    min-height: 320px;
+    max-height: none;
+  }
+
+  .map-panel-inner.mobile-view-details .folium-map {
+    display: none;
+  }
+
+  .map-panel-inner.mobile-view-details .side-panel {
+    /* Hug the content (e.g. the short stage/photo list) instead of forcing full viewport height. */
+    height: auto;
+    max-height: calc(100vh - 260px);
+    min-height: 0;
+  }
 }
 
 .panel-header h2 {
@@ -309,6 +416,38 @@ nav a:hover {
   gap: 0.5rem;
   color: var(--muted);
   font-size: 0.9rem;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  color: var(--mustard-300);
+  font: inherit;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  text-align: left;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.legend-item:hover,
+.legend-item:focus-visible {
+  /* The global `button:hover { background }` reset otherwise wins here (element+pseudo
+     beats the base .legend-item rule's class-only specificity for this property). */
+  background: none;
+  color: var(--mustard-400);
+  text-decoration: underline;
+}
+
+.legend-item:focus-visible {
+  outline: 2px solid var(--mustard-300);
+  outline-offset: 2px;
 }
 
 .legend-swatch {
@@ -360,6 +499,15 @@ nav a:hover {
   object-fit: contain;
 }
 
+/* World-map panel image links straight to the hike instead of opening a lightbox. */
+.panel-image-wrap a {
+  display: block;
+}
+
+.panel-image-wrap a .panel-image {
+  cursor: pointer;
+}
+
 .gallery-preview-title {
   margin: 0.75rem 0 0;
   color: var(--cream-100);
@@ -381,6 +529,11 @@ nav a:hover {
 
 .panel-meta-label {
   color: var(--muted);
+}
+
+.panel-meta + .button {
+  margin-top: 1rem;
+  display: inline-block;
 }
 
 /* Thumbnail row under main preview */
@@ -430,6 +583,23 @@ nav a:hover {
   outline: 2px solid var(--mustard-300);
 }
 .gallery-preview .clickable { cursor: zoom-in; }
+
+/* Compact photo grid instead of a horizontal scroll strip once the layout stacks. */
+@media (max-width: 640px) {
+  .thumb-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+    overflow: visible;
+  }
+
+  .thumb-row .gallery-thumb,
+  .map-panel .thumb-row .gallery-thumb {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1;
+    min-width: 0;
+  }
+}
 
 /* Lightbox / modal styles */
 #gallery-modal { display:none; position:fixed; z-index:10000; left:0; top:0; width:100%; height:100%; background:rgba(11,36,25,0.9); }
